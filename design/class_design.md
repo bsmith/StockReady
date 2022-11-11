@@ -25,6 +25,9 @@ classDiagram
         int stock_on_hand
         decimal cost_price
         decimal retail_price
+        str get_longer_description()
+        bool is_out_of_stock()
+        bool is_stock_low()
     }
     class ProductType {
         int id
