@@ -30,7 +30,7 @@ classDiagram
     }
     class product_types {
         id SERIAL [PK]
-        name TEXT
+        name TEXT NOT NULL
     }
     
     manufacturers "1" -- "*" products
@@ -66,7 +66,7 @@ classDiagram
     }
     class product_types {
         id SERIAL [PK]
-        name TEXT
+        name TEXT NOT NULL
     }
     
     manufacturers "1" -- "*" products
@@ -100,7 +100,7 @@ classDiagram
     }
     class product_types {
         id SERIAL [PK]
-        name TEXT
+        name TEXT NOT NULL
     }
     class branches {
         id SERIAL [PK]
