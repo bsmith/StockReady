@@ -35,3 +35,6 @@ CREATE TABLE products (
     cost_price DECIMAL(10,2) NOT NULL,
     retail_price DECIMAL(10,2) NOT NULL
 );
+
+-- Extension 4: Add a discontinued status to products
+ALTER TABLE products ADD discontinued BOOL;
