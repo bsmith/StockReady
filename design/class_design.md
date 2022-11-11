@@ -25,9 +25,11 @@ classDiagram
         int stock_on_hand
         decimal cost_price
         decimal retail_price
+        bool discontinued
         str get_longer_description()
         bool is_out_of_stock()
         bool is_stock_low()
+        bool should_hide_discontinued_product()
     }
     class ProductType {
         int id
