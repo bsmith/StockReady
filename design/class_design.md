@@ -39,3 +39,57 @@ classDiagram
     Manufacturer -- Product
     Product -- ProductType
 ```
+
+## Multiple Branches [Extension 5]
+
+```mermaid
+classDiagram
+    direction LR
+    class Manufacturer {
+        int id
+        str full_name
+        str short_brand_name
+        str trade_website
+        str trade_telephone
+        str customer_website
+        str customer_telephone
+    }
+    class Product {
+        int id
+        str mpn
+        Manufacturer manufacturer
+        str short_description
+        str long_description
+        ProductType product_type
+        float screen_size
+        decimal cost_price
+        decimal retail_price
+        bool discontinued
+        str get_longer_description()
+    }
+    class ProductType {
+        int id
+        str name
+    }
+    
+    Manufacturer -- Product
+    Product -- ProductType
+    
+    class Branch {
+        int id
+        str address
+        str telephone
+    }
+    class StockLevel {
+        int id
+        Product product
+        Branch branch
+        int stock_on_hand
+        bool is_out_of_stock()
+        bool is_stock_low()
+        bool should_hide_discontinued_product()
+    }
+
+    StockLevel -- Branch
+    StockLevel -- Product
+```
