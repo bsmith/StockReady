@@ -1,5 +1,9 @@
 from flask import Flask, render_template
 
+from controllers.products_controller import products_blueprint
+from controllers.manufacturers_controller import manufacturers_blueprint
+from controllers.product_types_controller import product_types_blueprint
+
 def create_app():
     app = Flask(__name__)
 
@@ -7,7 +11,9 @@ def create_app():
     app.jinja_options["autoescape"] = lambda _: True
 
     # register routes and blueprints
-    # app.register_blueprint(example_blueprint)
+    app.register_blueprint(products_blueprint)
+    app.register_blueprint(manufacturers_blueprint)
+    app.register_blueprint(product_types_blueprint)
 
     @app.route('/')
     def home():
