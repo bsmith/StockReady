@@ -23,7 +23,8 @@ class TestProduct(unittest.TestCase):
             19.5,
             100,
             Decimal(50.00),
-            Decimal(100.00)
+            Decimal(100.00),
+            id=123
         )
         # Test some fields may be none
         self.product_none = Product(
@@ -73,6 +74,10 @@ class TestProduct(unittest.TestCase):
     @unittest.expectedFailure
     def test_product_has_retail_price(self):
         self.assertEqual(Decimal(100.00), self.product_filled.retail_price)
+
+    @unittest.expectedFailure
+    def test_product_has_id(self):
+        self.assertEqual(123, self.product_filled.id)
 
     @unittest.expectedFailure
     def test_product_without_short_description(self):
