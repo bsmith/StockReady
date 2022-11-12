@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{title}} — StockReady</title>
+</head>
+<body>
+    <header>
+    {% block header %}
+        <h1>StockReady</h1>
+        <h2>{{title}}</h2>
+    {% endblock %}
+    </header>
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+    <footer>
+    {% block footer %}
+        <p>StockReady — <a href="https://github.com/bsmith/StockReady">github</a> — by <a href="https://github.com/bsmith/">Benjamin Smith</a></p>
+    {% endblock %}
+    </footer>
+</body>
+</html>

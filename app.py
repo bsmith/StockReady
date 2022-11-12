@@ -1,10 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
 def create_app():
     app = Flask(__name__)
 
     # register routes and blueprints
     # app.register_blueprint(example_blueprint)
+
+    @app.route('/')
+    def home():
+        return render_template('index.html.j2', title="Homepage")
 
     return app
 
