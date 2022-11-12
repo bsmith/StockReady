@@ -8,8 +8,11 @@ where you'd like to start debugging.
 """
 
 # import pdb
+import logging
 
 from db.run_sql import run_sql
+
+logging.basicConfig(level=logging.DEBUG)
 
 # EXAMPLE: show all data in database
 print(run_sql("SELECT * FROM product_types;"))
