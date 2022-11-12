@@ -22,11 +22,11 @@ CREATE TABLE manufacturers (
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     -- details aligned with manufacturer
-    mpn TEXT,
+    mpn TEXT NOT NULL,
     manufacturer_id INT NOT NULL REFERENCES manufacturers (id),
     -- description and type of product
     short_description TEXT NOT NULL,
-    long_description TEXT NOT NULL,
+    long_description TEXT,
     product_type_id INT NOT NULL REFERENCES product_types (id),
     -- product features
     screen_size FLOAT,
