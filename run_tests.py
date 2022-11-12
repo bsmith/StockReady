@@ -1,8 +1,8 @@
 import unittest
 
-from tests.manufacturer_tests import TestManufacturer
-from tests.product_tests import TestProduct
-from tests.product_type_tests import TestProductType
+from tests.manufacturer_test import TestManufacturer
+from tests.product_test import TestProduct
+from tests.product_type_test import TestProductType
 
 if __name__ == '__main__':
     unittest.main()
