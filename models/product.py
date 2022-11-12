@@ -1,2 +1,3 @@
 class Product:
-    pass
+    def __init__(*args, **kwargs):
+        pass
