@@ -1,22 +1,62 @@
 from db.run_sql import run_sql
-from models.manufacturer import Manufacturer
 from models.product import Product
-from models.product_type import ProductType
+import repositories.product_type_repository as product_type_repository
+import repositories.manufacturer_repository as manufacturer_repository
+
+SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, id FROM products WHERE id = %s"""
+SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, id FROM products"""
+
+def _make_model_from_select_row(row):
+    columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'id'
+    kwargs = dict((column, row[column]) for column in columns)
+    manufacturer = manufacturer_repository.select(row['manufacturer_id'])
+    product_type = product_type_repository.select(row['product_type_id'])
+    product = Product(manufacturer=manufacturer, product_type=product_type, **kwargs)
+    return product
 
 def select(id):
-    raise NotImplementedError()
+    results = run_sql(SQL_SELECT, [id])
+    if results:
+        return _make_model_from_select_row(results[0])
+    return None
 
 def select_all():
-    raise NotImplementedError()
+    results = run_sql(SQL_SELECT_ALL)
+    products = [_make_model_from_select_row(row) for row in results]
+    return products
 
+SQL_DELETE = """DELETE FROM products WHERE id = %s"""
+SQL_DELETE_ALL = """DELETE FROM products"""
+
+# XXX No error handling for id not found
 def delete(id):
-    raise NotImplementedError()
+    run_sql(SQL_DELETE, [id], do_fetchall=False)
 
 def delete_all():
-    raise NotImplementedError()
+    run_sql(SQL_DELETE_ALL, do_fetchall=False)
 
+##### NOT UPDATED BELOW HERE
+
+SQL_INSERT = """INSERT INTO products (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price) VALUES (""" + ", ".join(["%s"]*9) + """) RETURNING id"""
+SQL_UPDATE = """UPDATE products SET (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price) = (""" + ", ".join(["%s"]*9) + """) WHERE id = %s"""
+
+def _make_insert_row_from_model(product):
+    attrs = 'mpn', 'manufacturer', 'short_description', 'long_description', 'product_type', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price'
+    row = [getattr(product, attr) for attr in attrs]
+    row[attrs.index('manufacturer')] = product.manufacturer.id
+    row[attrs.index('product_type')] = product.product_type.id
+    return row
+
+# XXX No error handling for couldn't save
 def save(product):
-    raise NotImplementedError()
+    values = _make_insert_row_from_model(product)
+    results = run_sql(SQL_INSERT, values)
+    product.id = results[0]['id']
+    return product
 
+# XXX No error handling for couldn't update
 def update(product):
-    raise NotImplementedError()
+    values = _make_insert_row_from_model(product)
+    values += [product.id]
+    run_sql(SQL_UPDATE, values, do_fetchall=False)
+    return product
