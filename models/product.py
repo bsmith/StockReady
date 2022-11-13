@@ -29,3 +29,8 @@ class Product:
             return self.stock_on_hand == 1
         else:
             return 1 <= self.stock_on_hand < 6
+
+    def should_hide_discontinued_product(self):
+        if not self.discontinued:
+            return False
+        return not (self.stock_on_hand > 0)

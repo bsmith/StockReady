@@ -133,16 +133,13 @@ class TestProduct(unittest.TestCase):
     def test_has_discontinued__true(self):
         self.assertTrue(self.product_discontinued.discontinued)
 
-    @unittest.expectedFailure
     def test_should_hide_discontinued_product__not_discontinued(self):
         self.assertFalse(self.product_filled.should_hide_discontinued_product())
 
-    @unittest.expectedFailure
     def test_should_hide_discontinued_product__no_stock(self):
         self.product_discontinued.stock_on_hand = 0
         self.assertTrue(self.product_discontinued.should_hide_discontinued_product())
 
-    @unittest.expectedFailure
     def test_should_hide_discontinued_product__has_stock(self):
         self.product_discontinued.stock_on_hand = 2
         self.assertFalse(self.product_discontinued.should_hide_discontinued_product())
