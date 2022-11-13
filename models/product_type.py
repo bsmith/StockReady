@@ -1,3 +1,4 @@
 class ProductType:
-    def __init__(*args, **kwargs):
-        pass
+    def __init__(self, name, id=None):
+        self.name = name
+        self.id = id
