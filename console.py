@@ -9,12 +9,15 @@ where you'd like to start debugging.
 
 # import pdb
 import logging
+from decimal import Decimal
 
 from db.run_sql import run_sql
 from models.product_type import ProductType
 from models.manufacturer import Manufacturer
+from models.product import Product
 import repositories.product_type_repository as product_type_repository
 import repositories.manufacturer_repository as manufacturer_repository
+import repositories.product_repository as product_repository
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -41,7 +44,7 @@ if False:
     print("")
 
 # Exercise the Manufacturer Repository
-if True:
+if False:
     print("Exercising Manufacturer Repository")
     all_manufacturers = manufacturer_repository.select_all()
     for manufacturer in all_manufacturers:
@@ -55,6 +58,25 @@ if True:
     manufacturer_repository.update(new_manufacturer)
     print("update:", manufacturer_repository.select(new_manufacturer.id).__dict__)
     manufacturer_repository.delete(new_manufacturer.id)
+    print("")
+
+# Exercise the Product Repository
+if True:
+    all_products = product_repository.select_all()
+    for product in all_products:
+        print("select_all:", product.__dict__)
+    one_product = product_repository.select(all_products[0].id)
+    print("select:", one_product.__dict__)
+    manufacturer = manufacturer_repository.select_all()[-1]
+    product_type = product_type_repository.select_all()[-1]
+    new_product = Product("MPN", manufacturer, "Short", None, product_type,
+        None, 0, Decimal(10), Decimal(20))
+    product_repository.save(new_product)
+    print("save:", new_product.__dict__)
+    new_product.screen_size = 20
+    product_repository.update(new_product)
+    print("update:", product_repository.select(new_product.id).__dict__)
+    product_repository.delete(new_product.id)
     print("")
 
 # pdb.set_trace()
