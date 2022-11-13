@@ -29,24 +29,26 @@ def new_product():
     all_manufacturers = manufacturer_repository.select_all()
     return render_template('products/new.html.j2', all_product_types=all_product_types, all_manufacturers=all_manufacturers)
 
-def _validate_product_form(request):
+def _validate_product_form(form):
     validated = {}
-    validated['mpn'] = request['mpn']
-    validated['manufacturer'] = manufacturer_repository.select(request['manufacturer_id'])
-    validated['short_description'] = request['short_description']
-    validated['long_description'] = request['long_description']
+    validated['mpn'] = form['mpn']
+    validated['manufacturer'] = manufacturer_repository.select(form['manufacturer_id'])
+    validated['short_description'] = form['short_description']
+    validated['long_description'] = form['long_description']
     if len(validated['long_description']) == 0:
         validated['long_description'] = None
-    validated['product_type'] = product_type_repository.select(request['product_type_id'])
-    validated['screen_size'] = request['screen_size']
-    validated['stock_on_hand'] = request['stock_on_hand']
-    validated['cost_price'] = Decimal(request['cost_price'])
-    validated['retail_price'] = Decimal(request['retail_price'])
+    validated['product_type'] = product_type_repository.select(form['product_type_id'])
+    validated['screen_size'] = form['screen_size']
+    if len(validated['screen_size']) == 0:
+        validated['screen_size'] = None
+    validated['stock_on_hand'] = form['stock_on_hand']
+    validated['cost_price'] = Decimal(form['cost_price'])
+    validated['retail_price'] = Decimal(form['retail_price'])
     return validated
 
 @products_blueprint.route('/products', methods=["POST"])
 def create_product():
-    validated = _validate_product_form(request)
+    validated = _validate_product_form(request.form)
     new_product = Product(**validated)
     product_repository.save(new_product)
     return redirect(url_for('.show_product', id=new_product.id))
@@ -66,12 +68,12 @@ def edit_product(id):
 @products_blueprint.route('/products/<int:id>', methods=["POST"])
 def update_product(id):
     product = product_repository.select(id)
-    validated = _validate_product_form(request)
+    validated = _validate_product_form(request.form)
     # merge the validated data into the object
-    for key, value in validated.items:
+    for key, value in validated.items():
         setattr(product, key, value)
     product_repository.update(product)
-    return redirect(url_for('.show_product', id=new_product.id))
+    return redirect(url_for('.show_product', id=product.id))
 
 @products_blueprint.route('/products/<int:id>/delete', methods=["POST"])
 def delete_product(id):

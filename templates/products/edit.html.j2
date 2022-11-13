@@ -4,4 +4,48 @@
 {% block content %}
 <p>Sorry, this application is under construction.</p>
 <p>(products/edit.html.j2)</p>
+<form method="POST" action="{{ url_for('.update_product', id=product.id) }}">
+    <label>Id:
+        <input type="text" disabled readonly value="{{ product.id }}">
+    </label><br>
+    <label>MPN:
+        <input name="mpn" type="text" value="{{ product.mpn }}" required>
+    </label><br>
+    <label>manufacturer_id:
+        <select name="manufacturer_id" required>
+        {% for manufacturer in all_manufacturers %}
+            <option value="{{ manufacturer.id }}" {% if product.manufacturer.id == manufacturer.id %}selected{% endif %}>{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
+        {% endfor %}
+        </select>
+    </label><br>
+    <label>short_description:
+        <input name="short_description" type="text" value="{{ product.short_description }}" required>
+    </label><br>
+    <label>long_description:
+        <input name="long_description" type="text" value="{{ product.long_description }}">
+    </label><br>
+    <label>product_type_id:
+        <select name="product_type_id" required>
+        {% for product_type in all_product_types %}
+            <option value="{{ product_type.id }}" {% if product.product_type.id == product_type.id %}selected{% endif %}>{{ product_type.name }}</option>
+        {% endfor %}
+        </select>
+    </label><br>
+    <label>screen_size:
+        <input name="screen_size" type="text" value="{{ product.screen_size }}">
+    </label><br>
+    <label>stock_on_hand:
+        <input name="stock_on_hand" type="number" value="{{ product.stock_on_hand }}" required>
+    </label><br>
+    <label>cost_price:
+        <input name="cost_price" type="text" value="{{ product.cost_price }}" required>
+    </label><br>
+    <label>retail_price:
+        <input name="retail_price" type="text" value="{{ product.retail_price }}" required>
+    </label><br>
+    <button type="submit">update product</button>
+</form>
+<p>
+    <a href="{{ url_for('.show_product', id=product.id) }}">back to product details</a>
+</p>
 {% endblock %}

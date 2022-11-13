@@ -1,7 +1,48 @@
 {% extends "base.html.j2" %}
-{% block title %}New Product% endblock %}
+{% block title %}New Product{% endblock %}
 {% block h2 %}<h2>New Product</h2>{% endblock %}
 {% block content %}
 <p>Sorry, this application is under construction.</p>
 <p>(products/new.html.j2)</p>
+<form method="POST" action="{{ url_for('.create_product') }}">
+    <label>MPN:
+        <input name="mpn" type="text" required>
+    </label><br>
+    <label>manufacturer_id:
+        <select name="manufacturer_id" required>
+        {% for manufacturer in all_manufacturers %}
+            <option value="{{ manufacturer.id }}">{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
+        {% endfor %}
+        </select>
+    </label><br>
+    <label>short_description:
+        <input name="short_description" type="text" required>
+    </label><br>
+    <label>long_description:
+        <input name="long_description" type="text">
+    </label><br>
+    <label>product_type_id:
+        <select name="product_type_id" required>
+        {% for product_type in all_product_types %}
+            <option value="{{ product_type.id }}">{{ product_type.name }}</option>
+        {% endfor %}
+        </select>
+    </label><br>
+    <label>screen_size:
+        <input name="screen_size" type="text">
+    </label><br>
+    <label>stock_on_hand:
+        <input name="stock_on_hand" type="number" required>
+    </label><br>
+    <label>cost_price:
+        <input name="cost_price" type="text" required>
+    </label><br>
+    <label>retail_price:
+        <input name="retail_price" type="text" required>
+    </label><br>
+    <button type="submit">create product</button>
+</form>
+<p>
+    <a href="{{ url_for('.products') }}">back to all products</a>
+</p>
 {% endblock %}
