@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>{{title}} — StockReady</title>
+    <title>{% block title %}{{title}}{% endblock %} — StockReady</title>
 </head>
 <body>
     <header>
     {% block header %}
         <h1>StockReady</h1>
-        <h2>{{title}}</h2>
+        {% block h2 %}
+            <h2>{{title}}</h2>
+        {% endblock %}
         <nav><a href="{{ url_for('home') }}">Home</a></nav>
     {% endblock %}
     </header>
