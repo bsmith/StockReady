@@ -14,11 +14,10 @@ manufacturers_blueprint = Blueprint("manufacturers", __name__)
 # UPDATE  — PUT '/manufacturers/<id>'
 # DELETE  — DELETE '/manufacturers/<id>'
 
-# Not needed for MVP
-# @manufacturers_blueprint.route('/manufacturers/')
-# def manufacturers():
-#     all_manufacturers = manufacturer_repository.select_all()
-#     return render_template('manufacturers/index.html.j2', all_manufacturers=all_manufacturers)
+@manufacturers_blueprint.route('/manufacturers/')
+def manufacturers():
+    all_manufacturers = manufacturer_repository.select_all()
+    return render_template('manufacturers/index.html.j2', all_manufacturers=all_manufacturers)
 
 @manufacturers_blueprint.route('/manufacturers/new')
 def new_manufacturer():

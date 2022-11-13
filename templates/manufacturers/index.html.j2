@@ -1,0 +1,15 @@
+{% extends "base.html.j2" %}
+{% block title %}All Manufacturers{% endblock %}
+{% block h2 %}<h2>All Manufacturers</h2>{% endblock %}
+{% block content %}
+<p>Sorry, this application is under construction.</p>
+<p>(manufacturers/index.html.j2)</p>
+<p><a href="{{ url_for('.new_manufacturer') }}">new manufacturer</a></p>
+<ul>
+{% for manufacturer in all_manufacturers %}
+    <li>{{ manufacturer.__dict__ }}<br>
+        <a href="{{ url_for('.show_manufacturer', id=manufacturer.id) }}">show details</a>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}
