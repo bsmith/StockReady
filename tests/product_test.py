@@ -78,12 +78,10 @@ class TestProduct(unittest.TestCase):
     def test_product_without_id(self):
         self.assertIsNone(self.product_none.id)
 
-    @unittest.expectedFailure
     def test_get_longer_description__long_description_used(self):
         self.assertEqual(self.product_filled.long_description,
             self.product_filled.get_longer_description())
 
-    @unittest.expectedFailure
     def test_get_longer_description__short_description_used(self):
         self.assertEqual(self.product_none.short_description,
             self.product_none.get_longer_description())

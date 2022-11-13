@@ -11,3 +11,9 @@ class Product:
         self.cost_price = cost_price
         self.retail_price = retail_price
         self.id = id
+
+    def get_longer_description(self):
+        if self.long_description is None:
+            return self.short_description
+        else:
+            return self.long_description
