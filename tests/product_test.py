@@ -86,34 +86,28 @@ class TestProduct(unittest.TestCase):
         self.assertEqual(self.product_none.short_description,
             self.product_none.get_longer_description())
 
-    @unittest.expectedFailure
     def test_is_out_of_stock__in_stock(self):
         self.assertFalse(self.product_filled.is_out_of_stock())
 
-    @unittest.expectedFailure
     def test_is_out_of_stock__out_of_stock(self):
         self.product_filled.stock_on_hand = 0
         self.assertTrue(self.product_filled.is_out_of_stock())
 
-    @unittest.expectedFailure
     def test_is_stock_low__high_price_high_stock(self):
         self.product_filled.retail_price = 100
         self.product_filled.stock_on_hand = 10
         self.assertFalse(self.product_filled.is_stock_low())
 
-    @unittest.expectedFailure
     def test_is_stock_low__high_price_low_stock(self):
         self.product_filled.retail_price = 100
         self.product_filled.stock_on_hand = 1
         self.assertTrue(self.product_filled.is_stock_low())
 
-    @unittest.expectedFailure
     def test_is_stock_low__low_price_high_stock(self):
         self.product_filled.retail_price = 20
         self.product_filled.stock_on_hand = 10
         self.assertFalse(self.product_filled.is_stock_low())
 
-    @unittest.expectedFailure
     def test_is_stock_low__low_price_low_stock(self):
         self.product_filled.retail_price = 20
         self.product_filled.stock_on_hand = 4

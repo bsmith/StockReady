@@ -17,3 +17,12 @@ class Product:
             return self.short_description
         else:
             return self.long_description
+
+    def is_out_of_stock(self):
+        return self.stock_on_hand == 0
+
+    def is_stock_low(self):
+        if self.retail_price >= 100:
+            return self.stock_on_hand == 1
+        else:
+            return 1 <= self.stock_on_hand < 6
