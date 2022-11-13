@@ -12,7 +12,7 @@ class Product:
         self.stock_on_hand = stock_on_hand
         self.cost_price = cost_price
         self.retail_price = retail_price
-        self.discontinued = discontinued
+        self.discontinued = False if discontinued is None else discontinued
         self.id = id
 
     def get_longer_description(self):
