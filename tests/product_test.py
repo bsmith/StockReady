@@ -143,3 +143,19 @@ class TestProduct(unittest.TestCase):
     def test_should_hide_discontinued_product__has_stock(self):
         self.product_discontinued.stock_on_hand = 2
         self.assertFalse(self.product_discontinued.should_hide_discontinued_product())
+
+    # Regression test to make sure discontinued=None is translated to False
+    def test_discontinued_is_none_translated_to_false(self):
+        test_product = Product(
+            "MPN456",
+            self.manufacturer,
+            "Discont. Prod",
+            "Discontinued Product 456",
+            self.product_type,
+            24.1,
+            0,
+            Decimal(50.00),
+            Decimal(25.00),
+            discontinued=None
+        )
+        self.assertFalse(test_product.discontinued)
