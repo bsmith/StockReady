@@ -19,12 +19,15 @@ def create_app():
     def home():
         return render_template('index.html.j2', title="Homepage")
 
+    # if Flask debug is enabled, also enable DEBUG-level logging
+    if app.debug:
+        print("Enabling DEBUG log level")
+        import logging
+        logging.basicConfig()
+        logging.getLogger('db.run_sql').setLevel(logging.DEBUG)
+
     return app
 
 if __name__ == "__main__":
     app = create_app()
-    # if Flask debug is enabled, also enable DEBUG-level logging
-    if app.debug:
-        import logging
-        logging.basicConfig(level=logging.DEBUG)
     app.run()
