@@ -27,19 +27,19 @@ def new_manufacturer():
 def _convert_zero_length_str_to_none(string):
     return None if len(string) == 0 else string
 
-def _validate_manufacturer_form(request):
+def _validate_manufacturer_form(form):
     validated = {}
-    validated['full_name'] = request['full_name']
-    validated['short_brand_name'] = request['short_brand_name']
-    validated['trade_website'] = _convert_zero_length_str_to_none(request['trade_website'])
-    validated['trade_telephone'] = _convert_zero_length_str_to_none(request['trade_telephone'])
-    validated['customer_website'] = _convert_zero_length_str_to_none(request['customer_website'])
-    validated['customer_telephone'] = _convert_zero_length_str_to_none(request['customer_telephone'])
+    validated['full_name'] = form['full_name']
+    validated['short_brand_name'] = form['short_brand_name']
+    validated['trade_website'] = _convert_zero_length_str_to_none(form['trade_website'])
+    validated['trade_telephone'] = _convert_zero_length_str_to_none(form['trade_telephone'])
+    validated['customer_website'] = _convert_zero_length_str_to_none(form['customer_website'])
+    validated['customer_telephone'] = _convert_zero_length_str_to_none(form['customer_telephone'])
     return validated
 
 @manufacturers_blueprint.route('/manufacturers', methods=["POST"])
 def create_manufacturer():
-    validated = _validate_manufacturer_form(request)
+    validated = _validate_manufacturer_form(request.form)
     new_manufacturer = Manufacturer(**validated)
     manufacturer_repository.save(new_manufacturer)
     return redirect(url_for('.show_manufacturer', id=new_manufacturer.id))
@@ -57,9 +57,9 @@ def edit_manufacturer(id):
 @manufacturers_blueprint.route('/manufacturers/<int:id>', methods=["POST"])
 def update_manufacturer(id):
     manufacturer = manufacturer_repository.select(id)
-    validated = _validate_manufacturer_form(request)
+    validated = _validate_manufacturer_form(request.form)
     # merge the validated data into the object
-    for key, value in validated.items:
+    for key, value in validated.items():
         setattr(manufacturer, key, value)
     manufacturer_repository.update(manufacturer)
     return redirect(url_for('.show_manufacturer', id=manufacturer.id))
