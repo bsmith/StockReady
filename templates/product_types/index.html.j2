@@ -2,4 +2,20 @@
 {% block content %}
 <p>Sorry, this application is under construction.</p>
 <p>(product_types/index.html.j2)</p>
+<ul>
+{% for product_type in all_product_types %}
+    <li>{{ product_type }}<br>
+        <a href="{{ url_for('.edit_product_type', id=product_type.id) }}">edit</a>
+        <form method="POST" action="{{ url_for('.delete_product_type', id=product_type.id) }}">
+            <button type="submit">delete</button>
+        </form>
+    </li>
+{% endfor %}
+</ul>
+<form method="POST" action="{{ url_for('.create_product_type') }}">
+    <label>Name:
+        <input name="name" type="text">
+    </label>
+    <button type="submit">create</button>
+</form>
 {% endblock %}
