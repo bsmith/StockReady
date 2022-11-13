@@ -39,55 +39,42 @@ class TestProduct(unittest.TestCase):
             100.00
         )
 
-    @unittest.expectedFailure
     def test_product_has_mpn(self):
         self.assertEqual("MPN123", self.product_filled.mpn)
 
-    @unittest.expectedFailure
     def test_product_has_manufacturer(self):
         self.assertEqual(self.manufacturer, self.product_filled.manufacturer)
 
-    @unittest.expectedFailure
     def test_product_has_short_description(self):
         self.assertEqual("Short Description", self.product_filled.short_description)
 
-    @unittest.expectedFailure
     def test_product_has_long_description(self):
         self.assertEqual("Very long description about this product", self.product_filled.long_description)
 
-    @unittest.expectedFailure
     def test_product_has_product_type(self):
         self.assertEqual(self.product_type, self.product_filled.product_type)
 
-    @unittest.expectedFailure
     def test_product_has_screen_size(self):
         self.assertEqual(19.5, self.product_filled.screen_size)
 
-    @unittest.expectedFailure
     def test_product_has_stock_on_hand(self):
         self.assertEqual(100, self.product_filled.stock_on_hand)
 
-    @unittest.expectedFailure
     def test_product_has_cost_price(self):
         self.assertEqual(Decimal(50.00), self.product_filled.cost_price)
 
-    @unittest.expectedFailure
     def test_product_has_retail_price(self):
         self.assertEqual(Decimal(100.00), self.product_filled.retail_price)
 
-    @unittest.expectedFailure
     def test_product_has_id(self):
         self.assertEqual(123, self.product_filled.id)
 
-    @unittest.expectedFailure
-    def test_product_without_short_description(self):
-        self.assertIsNone(self.product_none.mpn)
+    def test_product_without_long_description(self):
+        self.assertIsNone(self.product_none.long_description)
 
-    @unittest.expectedFailure
     def test_product_without_screen_size(self):
         self.assertIsNone(self.product_none.screen_size)
 
-    @unittest.expectedFailure
     def test_product_without_id(self):
         self.assertIsNone(self.product_none.id)
 
