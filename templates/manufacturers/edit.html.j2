@@ -4,4 +4,31 @@
 {% block content %}
 <p>Sorry, this application is under construction.</p>
 <p>(manufacturers/edit.html.j2)</p>
+<form method="POST" action="{{ url_for('.update_manufacturer', id=manufacturer.id) }}">
+    <label>Id:
+        <input type="text" disabled readonly value="{{ manufacturer.id }}">
+    </label><br>
+    <label>full_name:
+        <input name="full_name" type="text" value="{{ manufacturer.full_name }}" required>
+    </label><br>
+    <label>short_brand_name:
+        <input name="short_brand_name" type="text" value="{{ manufacturer.short_brand_name }}" required>
+    </label><br>
+    <label>trade_website:
+        <input name="trade_website" type="text" value="{{ manufacturer.trade_website }}">
+    </label><br>
+    <label>trade_telephone:
+        <input name="trade_telephone" type="tel" value="{{ manufacturer.trade_telephone }}">
+    </label><br>
+    <label>customer_website:
+        <input name="customer_website" type="text" value="{{ manufacturer.customer_website }}">
+    </label><br>
+    <label>customer_telephone:
+        <input name="customer_telephone" type="tel" value="{{ manufacturer.customer_telephone }}">
+    </label><br>
+    <button type="submit">update manufacturer</button>
+</form>
+<p>
+    <a href="{{ url_for('.show_manufacturer', id=manufacturer.id) }}">back to manufacturer details</a>
+</p>
 {% endblock %}

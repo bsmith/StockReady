@@ -4,4 +4,25 @@
 {% block content %}
 <p>Sorry, this application is under construction.</p>
 <p>(manufacturers/new.html.j2)</p>
+<form method="POST" action="{{ url_for('.create_manufacturer') }}">
+    <label>full_name:
+        <input name="full_name" type="text" required>
+    </label><br>
+    <label>short_brand_name:
+        <input name="short_brand_name" type="text" required>
+    </label><br>
+    <label>trade_website:
+        <input name="trade_website" type="text">
+    </label><br>
+    <label>trade_telephone:
+        <input name="trade_telephone" type="tel">
+    </label><br>
+    <label>customer_website:
+        <input name="customer_website" type="text">
+    </label><br>
+    <label>customer_telephone:
+        <input name="customer_telephone" type="tel">
+    </label><br>
+    <button type="submit">create manufacturer</button>
+</form>
 {% endblock %}
