@@ -63,7 +63,8 @@ header > nav {
 }
 
 footer {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
+    font-style: oblique;
     margin-top: 2rem;
 }
 
@@ -202,6 +203,10 @@ nav.home > ul > li > a {
     background-color: white;
     color: black;
     /* outline: 1px dashed orange; */
+}
+
+.product-list [id] {
+    scroll-margin-top: 4rem;
 }
 
 .manufacturer-header {

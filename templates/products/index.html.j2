@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
 {% for manufacturer in all_manufacturers %}
-    <article id="manufacturer-{{ manufacturer.id }}"" class="manufacturer-group">
+    <section id="manufacturer-{{ manufacturer.id }}"" class="manufacturer-group">
         <div class="sticky-section-header">
             <header class="manufacturer-header">
                 <h2 class="short-brand-name">{{ manufacturer.short_brand_name }}</h2>
@@ -58,6 +58,6 @@
             {% endfor %}
         {% endif %}
         </ul>
-    </article>
+    </section>
 {% endfor %}
 {% endblock %}
