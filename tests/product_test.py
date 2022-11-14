@@ -35,8 +35,21 @@ class TestProduct(unittest.TestCase):
             self.product_type,
             None,
             100,
-            50.00,
-            100.00
+            Decimal(50.00),
+            Decimal(100.00)
+        )
+        # Discontinued product
+        self.product_discontinued = Product(
+            "MPN456",
+            self.manufacturer,
+            "Discont. Prod",
+            "Discontinued Product 456",
+            self.product_type,
+            24.1,
+            0,
+            Decimal(50.00),
+            Decimal(25.00),
+            discontinued=True
         )
 
     def test_product_has_mpn(self):
@@ -112,3 +125,37 @@ class TestProduct(unittest.TestCase):
         self.product_filled.retail_price = 20
         self.product_filled.stock_on_hand = 4
         self.assertTrue(self.product_filled.is_stock_low())
+
+    # Tests added for discontinued products
+    def test_has_discontinued__false_by_default(self):
+        self.assertFalse(self.product_filled.discontinued)
+
+    def test_has_discontinued__true(self):
+        self.assertTrue(self.product_discontinued.discontinued)
+
+    def test_should_hide_discontinued_product__not_discontinued(self):
+        self.assertFalse(self.product_filled.should_hide_discontinued_product())
+
+    def test_should_hide_discontinued_product__no_stock(self):
+        self.product_discontinued.stock_on_hand = 0
+        self.assertTrue(self.product_discontinued.should_hide_discontinued_product())
+
+    def test_should_hide_discontinued_product__has_stock(self):
+        self.product_discontinued.stock_on_hand = 2
+        self.assertFalse(self.product_discontinued.should_hide_discontinued_product())
+
+    # Regression test to make sure discontinued=None is translated to False
+    def test_discontinued_is_none_translated_to_false(self):
+        test_product = Product(
+            "MPN456",
+            self.manufacturer,
+            "Discont. Prod",
+            "Discontinued Product 456",
+            self.product_type,
+            24.1,
+            0,
+            Decimal(50.00),
+            Decimal(25.00),
+            discontinued=None
+        )
+        self.assertFalse(test_product.discontinued)

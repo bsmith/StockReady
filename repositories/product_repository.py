@@ -3,11 +3,11 @@ from models.product import Product
 import repositories.product_type_repository as product_type_repository
 import repositories.manufacturer_repository as manufacturer_repository
 
-SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, id FROM products WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, id FROM products"""
+SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products WHERE id = %s"""
+SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products"""
 
 def _make_model_from_select_row(row):
-    columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'id'
+    columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'discontinued', 'id'
     kwargs = dict((column, row[column]) for column in columns)
     manufacturer = manufacturer_repository.select(row['manufacturer_id'])
     product_type = product_type_repository.select(row['product_type_id'])
@@ -37,11 +37,11 @@ def delete_all():
 
 ##### NOT UPDATED BELOW HERE
 
-SQL_INSERT = """INSERT INTO products (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price) VALUES (""" + ", ".join(["%s"]*9) + """) RETURNING id"""
-SQL_UPDATE = """UPDATE products SET (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price) = (""" + ", ".join(["%s"]*9) + """) WHERE id = %s"""
+SQL_INSERT = """INSERT INTO products (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued) VALUES (""" + ", ".join(["%s"]*10) + """) RETURNING id"""
+SQL_UPDATE = """UPDATE products SET (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued) = (""" + ", ".join(["%s"]*10) + """) WHERE id = %s"""
 
 def _make_insert_row_from_model(product):
-    attrs = 'mpn', 'manufacturer', 'short_description', 'long_description', 'product_type', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price'
+    attrs = 'mpn', 'manufacturer', 'short_description', 'long_description', 'product_type', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'discontinued'
     row = [getattr(product, attr) for attr in attrs]
     row[attrs.index('manufacturer')] = product.manufacturer.id
     row[attrs.index('product_type')] = product.product_type.id
