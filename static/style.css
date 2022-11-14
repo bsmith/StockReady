@@ -101,9 +101,18 @@ form {
     font-size: 1.25rem;
 }
 
+main > form {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
 form input {
     font-size: inherit;
     padding: 0.5rem 0.25rem;
+}
+
+form input::placeholder {
+    text-transform: lowercase;
 }
 
 form label {
