@@ -37,18 +37,18 @@
                         <h3 class="short-description">{{ product.short_description }}</h3>
                         <div class="retail-price">£{{ product.retail_price }}</div>
                         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
-                        <div class="features">
+                        <ul class="features">
                             {% if product.is_out_of_stock() %}
-                            <div class="feature out-of-stock">OUT</div>
+                            <li class="feature out-of-stock">OUT</li>
                             {% endif %}
                             {% if product.is_stock_low() %}
-                            <div class="feature stock-low">LOW</div>
+                            <li class="feature stock-low">LOW</li>
                             {% endif %}
                             {% if product.screen_size %}
-                            <div class="feature screen-size">{{ product.screen_size }}"</div>
+                            <li class="feature screen-size">{{ product.screen_size }}"</li>
                             {% endif %}
-                            <div class="product-type">{{ product.product_type.name }}</div>
-                        </div>
+                            <li class="product-type">{{ product.product_type.name }}</li>
+                        </ul>
                     </article>
                 </a>
             </li>

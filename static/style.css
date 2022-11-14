@@ -258,6 +258,8 @@ nav.home > ul > li > a {
 }
 
 .product-row .features {
+    list-style: none;
+    padding: 0;
     grid-area: feat;
     display: flex;
     flex-direction: row;
@@ -273,6 +275,58 @@ nav.home > ul > li > a {
 .product-row .out-of-stock {
     outline-color: var(--problem-color);
     outline-width: 4px;
+}
+
+/* Product details */
+
+.product-header {
+    border-bottom: 4px solid var(--border-color);
+}
+
+.manufacturer-link {
+    border-bottom: 4px solid var(--border-color);
+    margin: 0.25rem 0rem 0.5rem;
+    display: grid;
+    grid-template-areas: "long long" "brand action";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+.manufacturer-link .full-name {
+    grid-area: long;
+}
+
+.manufacturer-link .short-brand-name {
+    grid-area: brand;
+}
+
+.manufacturer-link .action {
+    grid-area: action;
+}
+
+.product-detail .details {
+    border-bottom: 4px solid var(--border-color);
+}
+
+.product-detail .details section {
+    margin: 0.25rem 0rem 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.product-detail .details h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+    margin-bottom: 0.25rem;
+}
+
+.product-detail .features > ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Maintain product types */
