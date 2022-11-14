@@ -113,6 +113,20 @@ form input {
 
 form input::placeholder {
     text-transform: lowercase;
+    color: #999;
+    opacity: 1;
+}
+
+form select {
+    font-size: inherit;
+    padding: 0.5rem 0.25rem;
+}
+
+form select:invalid {
+    /* style this like a placeholder */
+    text-transform: lowercase;
+    color: #999;
+    opacity: 1;
 }
 
 form label {
