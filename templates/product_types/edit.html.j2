@@ -1,16 +1,20 @@
 {% extends "base.html.j2" %}
-{% block title %}Edit Product Type{% endblock %}
-{% block h2 %}<h2>Edit Product Type</h2>{% endblock %}
+{% block title %}{{ product_type.name }} — Edit Product Type{% endblock %}
+{% block header %}
+<h1>Edit Product Type</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.product_types') }}">All Product Types</a></li>
+    </ul>
+</nav>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-<p>(product_types/edit.html.j2)</p>
-<form method="POST" action="{{ url_for('.update_product_type', id=product_type.id) }}">
-    <label>Id:
-        <input type="text" disabled readonly value="{{ product_type.id }}">
-    </label><br>
-    <label>Name:
-        <input name="name" type="text" value="{{ product_type.name }}" required>
-    </label><br>
+<form class="update-product-type" method="POST" action="{{ url_for('.update_product_type', id=product_type.id) }}">
+    <label for="upt-name">Name:</label>
+    <input id="upt-name" name="name" type="text" value="{{ product_type.name }}" required>
     <button type="submit">update product type</button>
+</form>
+<form class="delete-product-type" method="POST" action="{{ url_for('.delete_product_type', id=product_type.id) }}">
+    <button type="submit">delete</button>
 </form>
 {% endblock %}
