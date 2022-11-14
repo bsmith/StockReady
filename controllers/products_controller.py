@@ -20,8 +20,18 @@ products_blueprint = Blueprint("products", __name__)
 
 @products_blueprint.route('/products/')
 def products():
+    all_manufacturers = manufacturer_repository.select_all()
+    all_manufacturers.sort(key=lambda m: m.short_brand_name)
     all_products = product_repository.select_all()
-    return render_template('products/index.html.j2', all_products=all_products)
+    all_products.sort(key=lambda p: p.id)
+    products_by_manufacturer_ids = {} # dictionary of lists
+    for product in all_products:
+        if product.manufacturer.id not in products_by_manufacturer_ids:
+            products_by_manufacturer_ids[product.manufacturer.id] = [product]
+        else:
+            products_by_manufacturer_ids[product.manufacturer.id].append(product)
+    return render_template('products/index.html.j2', all_products=all_products, all_manufacturers=all_manufacturers,
+        products_by_manufacturer_ids=products_by_manufacturer_ids)
 
 @products_blueprint.route('/products/new')
 def new_product():
