@@ -6,9 +6,6 @@
 <p>(manufacturers/show.html.j2)</p>
 <p>{{ manufacturer.__dict__ }}<br>
     <a href="{{ url_for('.edit_manufacturer', id=manufacturer.id) }}">edit</a>
-    <form method="POST" action="{{ url_for('.delete_manufacturer', id=manufacturer.id) }}">
-        <button type="submit">delete</button>
-    </form>
 </p>
 <p>
     <a href="{{ url_for('.manufacturers') }}">back to all manufacturers</a>

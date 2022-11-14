@@ -51,7 +51,8 @@ def show_manufacturer(id):
 @manufacturers_blueprint.route('/manufacturers/<int:id>/edit')
 def edit_manufacturer(id):
     manufacturer = manufacturer_repository.select(id)
-    return render_template('manufacturers/edit.html.j2', manufacturer=manufacturer)
+    allow_delete = True
+    return render_template('manufacturers/edit.html.j2', manufacturer=manufacturer, allow_delete=allow_delete)
 
 @manufacturers_blueprint.route('/manufacturers/<int:id>', methods=["POST"])
 def update_manufacturer(id):

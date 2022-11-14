@@ -8,7 +8,10 @@ a:visited { color: inherit }
     --border-color: grey;
     --hero-color-bg: rebeccapurple;
     --hero-color-fg: white;
-    --problem-color: maroon;
+    /* --problem-color: maroon; */
+    --problem-color: red;
+    --disabled-color-bg: lightgrey;
+    --disabled-color-fg: grey;
 }
 
 /* FONTS */
@@ -105,6 +108,16 @@ form button {
     padding: 0.5rem;
     background-color: white;
     color: black;
+}
+
+form button.danger {
+    border-color: var(--problem-color);
+}
+
+form button[disabled] {
+    border-color: var(--disabled-color-bg);
+    background-color: var(--disabled-color-bg);
+    color: var(--disabled-color-fg);
 }
 
 /* PAGE SPECIFIC ELEMENTS */

@@ -15,6 +15,6 @@
     <button type="submit">update product type</button>
 </form>
 <form class="delete-product-type" method="POST" action="{{ url_for('.delete_product_type', id=product_type.id) }}">
-    <button type="submit">delete</button>
+    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
 </form>
 {% endblock %}

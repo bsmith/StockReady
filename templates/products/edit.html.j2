@@ -45,6 +45,9 @@
     </label><br>
     <button type="submit">update product</button>
 </form>
+<form method="POST" action="{{ url_for('.delete_product', id=product.id) }}">
+    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
+</form>
 <p>
     <a href="{{ url_for('.show_product', id=product.id) }}">back to product details</a>
 </p>

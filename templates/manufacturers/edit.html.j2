@@ -28,6 +28,9 @@
     </label><br>
     <button type="submit">update manufacturer</button>
 </form>
+<form method="POST" action="{{ url_for('.delete_manufacturer', id=manufacturer.id) }}">
+    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
+</form>
 <p>
     <a href="{{ url_for('.show_manufacturer', id=manufacturer.id) }}">back to manufacturer details</a>
 </p>

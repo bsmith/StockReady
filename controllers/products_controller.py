@@ -73,7 +73,8 @@ def edit_product(id):
     product = product_repository.select(id)
     all_product_types = product_type_repository.select_all()
     all_manufacturers = manufacturer_repository.select_all()
-    return render_template('products/edit.html.j2', product=product, all_product_types=all_product_types, all_manufacturers=all_manufacturers)
+    allow_delete = True
+    return render_template('products/edit.html.j2', product=product, all_product_types=all_product_types, all_manufacturers=all_manufacturers, allow_delete=allow_delete)
 
 @products_blueprint.route('/products/<int:id>', methods=["POST"])
 def update_product(id):
