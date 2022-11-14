@@ -58,3 +58,13 @@ class TestManufacturer(unittest.TestCase):
 
     def test_manufacturer_without_id(self):
         self.assertIsNone(self.manufacturer2.id)
+
+    @unittest.expectedFailure
+    def test_has_trade_contacts(self):
+        self.assertTrue(self.manufacturer1.has_trade_contacts())
+        self.assertFalse(self.manufacturer2.has_trade_contacts())
+
+    @unittest.expectedFailure
+    def test_has_customer_contacts(self):
+        self.assertTrue(self.manufacturer1.has_customer_contacts())
+        self.assertFalse(self.manufacturer2.has_customer_contacts())
