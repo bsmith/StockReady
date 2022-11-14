@@ -1,13 +1,62 @@
 {% extends "base.html.j2" %}
-{% block title %}Manufacturer Details{% endblock %}
-{% block h2 %}<h2>Manufacturer Details</h2>{% endblock %}
+{% block title %}{{ manufacturer.short_brand_name }} — Manufacturer Details{% endblock %}
+{% block header %}
+<h1>Manufacturer Details</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.manufacturers') }}#manufacturer-{{ manufacturer.id }}">All Manufacturers</a></li>
+        <li><a href="{{ url_for('.edit_manufacturer', id=manufacturer.id) }}">edit</a></li>
+    </ul>
+</nav>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-<p>(manufacturers/show.html.j2)</p>
-<p>{{ manufacturer.__dict__ }}<br>
-    <a href="{{ url_for('.edit_manufacturer', id=manufacturer.id) }}">edit</a>
-</p>
-<p>
-    <a href="{{ url_for('.manufacturers') }}">back to all manufacturers</a>
-</p>
+<article class="manufacturer-detail" id="manufacturer-{{ manufacturer.id }}">
+    <header class="manufacturer-header">
+        <h2 class="full-name">{{ manufacturer.full_name }}</h2>
+        <h3 class="short-brand-name">{{ manufacturer.short_brand_name }}</h3>
+
+        <nav class="actionbar">
+            <ul>
+                <li><a href="{{ url_for('products.products') }}#manufacturer-{{ manufacturer.id }}">All products by {{ manufacturer.short_brand_name }}</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    {% if manufacturer.has_trade_contacts() %}
+        <address class="trade-contacts">
+            <dl>
+                <dt>Trade website:</dt>
+                {% if manufacturer.trade_website %}
+                <dd><a href="https://example.com/{{ manufacturer.trade_website }}">{{ manufacturer.trade_website }}</a></dd>
+                {% else %}
+                <dd><i class="none">None</i></dd>
+                {% endif %}
+                <dt>Trade telephone:</dt>
+                {% if manufacturer.trade_telephone %}
+                <dd><a href="#tel:{{ manufacturer.trade_telephone }}">{{ manufacturer.trade_telephone }}</a></dd>
+                {% else %}
+                <dd><i class="none">None</i></dd>
+                {% endif %}
+            </dl>
+        </address>
+    {% endif %}
+    {% if manufacturer.has_customer_contacts() %}
+        <address class="customer-contacts">
+            <dl>
+                <dt>Customer website:</dt>
+                {% if manufacturer.customer_website %}
+                <dd><a href="https://example.com/{{ manufacturer.customer_website }}">{{ manufacturer.customer_website }}</a></dd>
+                {% else %}
+                <dd><i class="none">None</i></dd>
+                {% endif %}
+                <dt>Customer telephone:</dt>
+                {% if manufacturer.customer_telephone %}
+                <dd><a href="#tel:{{ manufacturer.customer_telephone }}">{{ manufacturer.customer_telephone }}</a></dd>
+                {% else %}
+                <dd><i class="none">None</i></dd>
+                {% endif %}
+            </dl>
+        </address>
+    {% endif %}
+</article>
 {% endblock %}

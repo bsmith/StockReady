@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
 <!-- New Product Type -->
-<details open class="new-product-type">
+<details {#open#} class="new-product-type">
     <summary><h2>New Product Type</h2></summary>
     <form method="POST" action="{{ url_for('.create_product_type') }}">
         <label for="npt-name">Name:</label>

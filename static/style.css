@@ -1,8 +1,13 @@
+/* VERY SMALL RESET */
+
 *, *::after, *::before { box-sizing: border-box }
 body, p, h1, h2, h3, h4, h5, h6, ul, ol { margin: 0 }
 a { color: inherit }
 a:visited { color: inherit }
+address { font-style: normal; font-size: inherit }
 /* * { outline: 1px dashed greenyellow } */
+
+/* COLOUR PALETTE */
 
 :root {
     --border-color: grey;
@@ -60,6 +65,15 @@ header > nav {
 footer {
     font-size: 0.5rem;
     margin-top: 2rem;
+}
+
+/* This is used on detail pages */
+main > article {
+    margin: 0.25rem 1.5rem 0.5rem;
+}
+
+main > article > * {
+    margin-bottom: 0.25rem;
 }
 
 /* Action bars */
@@ -160,11 +174,17 @@ nav.home > ul > li > a {
 /* All products */
 .manufacturer-header {
     border-bottom: 4px solid var(--border-color);
-    margin: 0.25rem 1.5rem 0.5rem;
+    margin: 0.25rem 0rem 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline
+}
+
+.manufacturer-group .manufacturer-header {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    flex-direction: row;
 }
 
 .product-list {
@@ -301,4 +321,16 @@ details > summary > h2 {
     grid-area: brand;
     font-size: 1rem;
     font-weight: normal;
+}
+
+/* Manufacturer details */
+.none {
+    font-style: oblique;
+}
+
+/* for the details page, override the style used on all inventory */
+.manufacturer-detail .manufacturer-header {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
 }
