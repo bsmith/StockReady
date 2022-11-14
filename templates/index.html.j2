@@ -1,12 +1,15 @@
 {% extends "base.html.j2" %}
+{% block header %}
+<div class="homeheader">
+    <h1 class="logotype">StockReady</h1>
+</div>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-
-<nav>
+<nav class="home">
     <ul>
         <li><a href="{{ url_for('products.products') }}">All products</a></li>
+        <li><a href="{{ url_for('manufacturers.manufacturers') }}">All manufacturers</a></li>
         <li><a href="{{ url_for('product_types.product_types') }}">Maintain product types</a></li>
-        <li><a href="{{ url_for('manufacturers.new_manufacturer') }}">New manufacturer</a></li>
     </ul>
 </nav>
 {% endblock %}

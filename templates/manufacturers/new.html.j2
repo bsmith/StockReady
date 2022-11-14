@@ -1,28 +1,27 @@
 {% extends "base.html.j2" %}
 {% block title %}New Manufacturer{% endblock %}
-{% block h2 %}<h2>New Manufacturer</h2>{% endblock %}
+{% block header %}
+<h1>New Manufacturer</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.manufacturers') }}">All Manufacturers</a></li>
+    </ul>
+</nav>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-<p>(manufacturers/new.html.j2)</p>
-<form method="POST" action="{{ url_for('.create_manufacturer') }}">
-    <label>full_name:
-        <input name="full_name" type="text" required>
-    </label><br>
-    <label>short_brand_name:
-        <input name="short_brand_name" type="text" required>
-    </label><br>
-    <label>trade_website:
-        <input name="trade_website" type="text">
-    </label><br>
-    <label>trade_telephone:
-        <input name="trade_telephone" type="tel">
-    </label><br>
-    <label>customer_website:
-        <input name="customer_website" type="text">
-    </label><br>
-    <label>customer_telephone:
-        <input name="customer_telephone" type="tel">
-    </label><br>
+<form class="create-manufacturer" method="POST" action="{{ url_for('.create_manufacturer') }}">
+    <label for="um-full-name">Full Name:</label>
+    <input id="um-full-name" name="full_name" type="text"  placeholder="FULL NAME" required>
+    <label for="um-short-brand-name">Short Brand Name:</label>
+    <input id="um-short-brand-name" name="short_brand_name" type="text" placeholder="SHORT BRAND NAME" required>
+    <label for="um-trade-website">Trade Website: (optional)</label>
+    <input id="um-trade-website" name="trade_website" type="text" placeholder="TRADE WEBSITE (OPTIONAL)">
+    <label for="um-trade-telephone">Trade Telephone: (optional)</label>
+    <input id="um-trade-telephone" name="trade_telephone" type="tel" placeholder="TRADE TELEPHONE (OPTIONAL)">
+    <label for="um-customer-website">Customer Website: (optional)</label>
+    <input id="um-customer-website" name="customer_website" type="text" placeholder="CUSTOMER WEBSITE (OPTIONAL)">
+    <label for="um-customer-telephone">Customer Telephone: (optional)</label>
+    <input id="um-customer-telephone" name="customer_telephone" type="tel" placeholder="CUSTOMER TELEPHONE (OPTIONAL)">
     <button type="submit">create manufacturer</button>
 </form>
 {% endblock %}

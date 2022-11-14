@@ -1,17 +1,81 @@
 {% extends "base.html.j2" %}
-{% block title %}Product Details{% endblock %}
-{% block h2 %}<h2>Product Details</h2>{% endblock %}
+{% block title %}{{ product.short_description }} — Product Details{% endblock %}
+{% block header %}
+<h1>Product Details</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.products') }}#product-{{ product.id }}">All Products</a></li>
+        <li><a href="{{ url_for('.edit_product', id=product.id) }}">edit</a></li>
+    </ul>
+</nav>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-<p>(products/show.html.j2)</p>
-<p>{{ product.__dict__ }}<br>
-    <a href="{{ url_for('manufacturers.show_manufacturer', id=product.manufacturer.id) }}">details of {{ product.manufacturer.short_brand_name }}</a><br>
-    <a href="{{ url_for('.edit_product', id=product.id) }}">edit</a>
-    <form method="POST" action="{{ url_for('.delete_product', id=product.id) }}">
-        <button type="submit">delete</button>
-    </form>
-</p>
-<p>
-    <a href="{{ url_for('.products') }}">back to all products</a>
-</p>
+<article class="product-detail" id="product-{{ product.id }}">
+    <header class="product-header">
+        <h2 class="short-description">{{ product.short_description }}</h2>
+        <h3 class="mpn">{{ product.mpn }}</h3>
+    </header>
+
+    {# XXX I can't decide what this area should look like #}
+    {# it feels like it should look like the area on the manufacturer's detail page that
+       links to products by that manufacturer #}
+    <section class="manufacturer-link">
+        <h3 class="full-name">{{ product.manufacturer.full_name }}</h3>
+        <h4 class="short-brand-name">{{ product.manufacturer.short_brand_name }}</h4>
+        <nav class="actionbar">
+            <ul>
+                <li><a href="{{ url_for('manufacturers.show_manufacturer', id=product.manufacturer.id) }}">{#manufacturer #}details</a></li>
+            </ul>
+        </nav>
+    </section>
+
+{#
+    -- stock and costs
+    stock_on_hand INT NOT NULL,
+    cost_price DECIMAL(10,2) NOT NULL,
+    retail_price DECIMAL(10,2) NOT NULL
+#}
+
+    <section class="stock-details">
+        <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
+        <div class="cost-price"><h3>Cost Price:</h3> £{{ product.cost_price }}</div>
+        <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
+        <div class="warning">
+            {% if product.is_out_of_stock() %}
+                <div class="out-of-stock">OUT</div>
+            {% endif %}
+            {% if product.is_stock_low() %}
+                <div class="low-stock">LOW</div>
+            {% endif %}
+        </div>
+    </section>
+
+    <div class="details">
+        <section class="product-type">
+            <h3>Product type:</h3>
+            {# we don't need to link to product types #}
+            {#<a href="{{ url_for('product_types.product_types') }}#product.product_type.id">#}
+                <p>{{ product.product_type.name}}</p>
+            {#</a>#}
+        </section>
+
+        <section class="features">
+            <h3>Features:</h3>
+            <ul>
+                {% if product.screen_size %}
+                <li class="screen-size">Screen size: {{ product.screen_size }}"</li>
+                {% else %}
+                <li class="nofeatures">No features</li>
+                {% endif %}
+            </ul>
+        </section>
+    </div>
+
+    <section class="long-description">
+        <p>{{ product.get_longer_description() }}</p>
+    </section>
+
+    {# XXX Similar products #}
+
+</article>
 {% endblock %}

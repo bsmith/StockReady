@@ -40,7 +40,8 @@ def create_product_type():
 @product_types_blueprint.route('/product_types/<int:id>/edit')
 def edit_product_type(id):
     product_type = product_type_repository.select(id)
-    return render_template('product_types/edit.html.j2', product_type=product_type)
+    allow_delete = True
+    return render_template('product_types/edit.html.j2', product_type=product_type, allow_delete=allow_delete)
 
 @product_types_blueprint.route('/product_types/<int:id>', methods=["POST"])
 def update_product_type(id):

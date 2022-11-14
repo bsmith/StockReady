@@ -1,1 +1,475 @@
-/* empty */
+/* VERY SMALL RESET */
+
+*, *::after, *::before { box-sizing: border-box }
+body, p, h1, h2, h3, h4, h5, h6, ul, ol { margin: 0 }
+a { color: inherit }
+a:visited { color: inherit }
+address { font-style: normal; font-size: inherit }
+/* * { outline: 1px dashed greenyellow } */
+
+/* COLOUR PALETTE */
+
+:root {
+    --border-color: grey;
+    --hero-color-bg: rebeccapurple;
+    --hero-color-fg: white;
+    /* --problem-color: maroon; */
+    --problem-color: red;
+    --disabled-color-bg: lightgrey;
+    --disabled-color-fg: grey;
+}
+
+/* FONTS */
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1rem;
+}
+
+.logotype {
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 4rem;
+}
+
+h1, h2 { font-size: 2rem }
+h3, h4 { font-size: 1.5rem }
+h5, h6 { font-size: 1rem }
+
+/* BASE COLOURS */
+body > header {
+    background-color: var(--hero-color-bg);
+    color: var(--hero-color-fg);
+    padding-bottom: 4px;
+}
+body, body > main, body > footer {
+    background-color: white;
+    color: black;
+}
+
+/* COMMON ELEMENTS */
+header {
+    display: flex;
+    flex-direction: column;
+}
+
+header > h1 {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+header > nav {
+    background-color: white;
+    color: black;
+}
+
+footer {
+    font-size: 0.75rem;
+    font-style: oblique;
+    margin-top: 2rem;
+}
+
+/* This is used on detail pages */
+main > article {
+    margin: 0.25rem 1.5rem 0.5rem;
+}
+
+main > article > * {
+    margin-bottom: 0.25rem;
+}
+
+/* Action bars */
+nav.actionbar > ul {
+    padding: 0.25rem 1rem;
+    gap: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    justify-content: space-between;
+}
+nav.actionbar > ul > li > a {
+    text-transform: uppercase;
+    text-decoration: none;
+    /* outline: 1px solid red; */
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0.25rem 0rem;
+    font-size: 1.25rem;
+}
+
+main > form {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+form input {
+    font-size: inherit;
+    padding: 0.5rem 0.25rem;
+}
+
+form input::placeholder {
+    text-transform: lowercase;
+    color: #999;
+    opacity: 1;
+}
+
+form select {
+    font-size: inherit;
+    padding: 0.5rem 0.25rem;
+}
+
+form select:invalid {
+    /* style this like a placeholder */
+    text-transform: lowercase;
+    color: #999;
+    opacity: 1;
+}
+
+form label {
+    text-align: center;
+}
+
+form button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: inherit;
+    border: 4px solid var(--hero-color-bg);
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: white;
+    color: black;
+}
+
+form button.danger {
+    border-color: var(--problem-color);
+}
+
+form button[disabled] {
+    border-color: var(--disabled-color-bg);
+    background-color: var(--disabled-color-bg);
+    color: var(--disabled-color-fg);
+}
+
+/* PAGE SPECIFIC ELEMENTS */
+
+/* Homepage */
+.homeheader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+nav.home > ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+}
+
+nav.home > ul > li {
+    border-bottom: 4px solid var(--border-color);
+    height: 4rem;
+}
+nav.home > ul > li:first-child {
+    border-top: 4px solid var(--border-color);
+}
+
+nav.home > ul > li > a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-transform: none;
+}
+
+/* All products */
+.sticky-section-header {
+    position: sticky;
+    top: 0;
+    padding-top: 0.25rem;
+    background-color: white;
+    color: black;
+    /* outline: 1px dashed orange; */
+}
+
+.product-list [id] {
+    scroll-margin-top: 4rem;
+}
+
+.manufacturer-header {
+    border-bottom: 4px solid var(--border-color);
+    margin: 0.25rem 0rem 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.manufacturer-group .manufacturer-header {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    flex-direction: row;
+}
+
+.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+.product-list > li > a {
+    text-decoration: inherit;
+}
+
+.noproducts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: grid;
+    grid-template-areas: "desc price soh" "feat feat soh";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr 6rem 4rem;
+    justify-items: start;
+    align-items: center;
+}
+
+.product-row .short-description {
+    grid-area: desc;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.product-row .retail-price {
+    grid-area: price;
+    justify-self: stretch;
+    text-align: right;
+    padding-right: 0.25rem;
+}
+
+.product-row .stock-on-hand {
+    grid-area: soh;
+    font-size: 2.5rem;
+    justify-self: center;
+    align-self: center;
+}
+
+.product-row .features {
+    list-style: none;
+    padding: 0;
+    grid-area: feat;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.product-row .feature {
+    outline: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0px 4px;
+}
+
+.product-row .out-of-stock {
+    outline-color: var(--problem-color);
+    outline-width: 4px;
+}
+
+/* Product details */
+
+.product-header {
+    border-bottom: 4px solid var(--border-color);
+}
+
+.manufacturer-link {
+    border-bottom: 4px solid var(--border-color);
+    margin: 0.25rem 0rem 0.5rem;
+    display: grid;
+    grid-template-areas: "long long" "brand action";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+.manufacturer-link .full-name {
+    grid-area: long;
+}
+
+.manufacturer-link .short-brand-name {
+    grid-area: brand;
+}
+
+.manufacturer-link .action {
+    grid-area: action;
+}
+
+.stock-details {
+    /* border-bottom: 4px solid var(--border-color); */
+    border-left: 8px solid var(--hero-color-bg);
+    border-right: 8px solid var(--hero-color-bg);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: grid;
+    grid-template-areas: "retail soh" "cost soh" "blank warn";
+    grid-template-rows: repeat(3, minmax(2rem, 1fr));
+    grid-template-columns: 1fr 4rem;
+    justify-items: start;
+    align-items: center;
+}
+
+.stock-details .cost-price {
+    grid-area: cost;
+}
+
+.stock-details .retail-price {
+    grid-area: retail;
+}
+
+.stock-details .stock-on-hand {
+    grid-area: soh;
+    font-size: 2.5rem;
+    justify-self: center;
+    align-self: center;
+}
+
+.stock-details .warning {
+    grid-area: warn;
+    justify-self: center;
+}
+
+.stock-details .warning > div {
+    outline: 4px solid var(--problem-color);
+    border-radius: 4px;
+    padding: 0px 4px;
+}
+
+.stock-details h3 {
+    display: inline;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+    margin-bottom: 0.25rem;
+}
+
+.product-detail .details {
+    border-bottom: 4px solid var(--border-color);
+}
+
+.product-detail .details section {
+    margin: 0.25rem 0rem 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.product-detail .details h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+    margin-bottom: 0.25rem;
+}
+
+.product-detail .features > ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Maintain product types */
+details > summary > h2 {
+    display: inline;
+}
+
+.new-product-type {
+    border-bottom: 4px solid var(--border-color);
+    margin: 0.25rem 1.5rem 0.5rem;
+    /* padding: 0 0 0.5rem; */
+}
+
+.new-product-type summary {
+    margin-bottom: 0.5rem;
+}
+
+.new-product-type summary::marker {
+    font-size: 2rem;
+}
+
+.product-type-list {
+    list-style: none;
+    padding: 0;
+}
+
+.product-type-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+/* Edit product type */
+/* No styles needed! */
+
+/* All manufacturers */
+.manufacturer-list {
+    list-style: none;
+    padding: 0;
+}
+
+.manufacturer-list > li > a {
+    text-decoration: inherit;
+}
+
+.manufacturer-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: grid;
+    grid-template-areas: "full-name" "brand";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+.manufacturer-row .full-name {
+    grid-area: full-name;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.manufacturer-row .short-brand-name {
+    grid-area: brand;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+/* Manufacturer details */
+.none {
+    font-style: oblique;
+}
+
+/* for the details page, override the style used on all inventory */
+.manufacturer-detail .manufacturer-header {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+}

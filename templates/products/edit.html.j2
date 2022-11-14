@@ -1,51 +1,44 @@
 {% extends "base.html.j2" %}
-{% block title %}Edit Product{% endblock %}
-{% block h2 %}<h2>Edit Product</h2>{% endblock %}
+{% block title %}{{ product.short_description }} — Edit Product{% endblock %}
+{% block header %}
+<h1>Edit Product</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.show_product', id=product.id) }}">Details</a></li>
+    </ul>
+</nav>
+{% endblock %}
 {% block content %}
-<p>Sorry, this application is under construction.</p>
-<p>(products/edit.html.j2)</p>
-<form method="POST" action="{{ url_for('.update_product', id=product.id) }}">
-    <label>Id:
-        <input type="text" disabled readonly value="{{ product.id }}">
-    </label><br>
-    <label>MPN:
-        <input name="mpn" type="text" value="{{ product.mpn }}" required>
-    </label><br>
-    <label>manufacturer_id:
-        <select name="manufacturer_id" required>
-        {% for manufacturer in all_manufacturers %}
-            <option value="{{ manufacturer.id }}" {% if product.manufacturer.id == manufacturer.id %}selected{% endif %}>{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
-        {% endfor %}
-        </select>
-    </label><br>
-    <label>short_description:
-        <input name="short_description" type="text" value="{{ product.short_description }}" required>
-    </label><br>
-    <label>long_description:
-        <input name="long_description" type="text" value="{{ product.long_description }}">
-    </label><br>
-    <label>product_type_id:
-        <select name="product_type_id" required>
-        {% for product_type in all_product_types %}
-            <option value="{{ product_type.id }}" {% if product.product_type.id == product_type.id %}selected{% endif %}>{{ product_type.name }}</option>
-        {% endfor %}
-        </select>
-    </label><br>
-    <label>screen_size:
-        <input name="screen_size" type="text" value="{{ product.screen_size }}">
-    </label><br>
-    <label>stock_on_hand:
-        <input name="stock_on_hand" type="number" value="{{ product.stock_on_hand }}" required>
-    </label><br>
-    <label>cost_price:
-        <input name="cost_price" type="text" value="{{ product.cost_price }}" required>
-    </label><br>
-    <label>retail_price:
-        <input name="retail_price" type="text" value="{{ product.retail_price }}" required>
-    </label><br>
+<form class="update-product" method="POST" action="{{ url_for('.update_product', id=product.id) }}">
+    <label for="up-mpn">MPN:</label>
+    <input id="up-mpn" name="mpn" type="text" value="{{ product.mpn }}" required>
+    <label for="up-manufacturer">Manufacturer:</label>
+    <select id="up-manufacturer" name="manufacturer_id" required>
+    {% for manufacturer in all_manufacturers %}
+        <option value="{{ manufacturer.id }}" {% if product.manufacturer.id == manufacturer.id %}selected{% endif %}>{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
+    {% endfor %}
+    </select>
+    <label for="up-short-description">Short Description:</label>
+    <input id="up-short-description" name="short_description" type="text" value="{{ product.short_description }}" required>
+    <label for="up-long-description">Long Description: (optional)</label>
+    <input id="up-long-description" name="long_description" type="text" value="{{ product.long_description|default('', True) }}" placeholder="None">
+    <label for="up-product-type">Product Type:</label>
+    <select id="up-product-type" name="product_type_id" required>
+    {% for product_type in all_product_types %}
+        <option value="{{ product_type.id }}" {% if product.product_type.id == product_type.id %}selected{% endif %}>{{ product_type.name }}</option>
+    {% endfor %}
+    </select>
+    <label for="up-screen-size">Screen Size: (inches, optional)</label>
+    <input id="up-screen-size" name="screen_size" type="text" value="{{ product.screen_size|default('', True) }}" placeholder="None">
+    <label for="up-stock-on-hand">Stock on Hand: (units)</label>
+    <input id="up-stock-on-hand" name="stock_on_hand" type="number" value="{{ product.stock_on_hand }}" required>
+    <label for="up-cost-price">Cost Price: (£)</label>
+    <input id="up-cost-price" name="cost_price" type="text" value="{{ product.cost_price }}" required>
+    <label for="up-retail-price">Retail Price: (£)</label>
+    <input id="up-retail-price" name="retail_price" type="text" value="{{ product.retail_price }}" required>
     <button type="submit">update product</button>
 </form>
-<p>
-    <a href="{{ url_for('.show_product', id=product.id) }}">back to product details</a>
-</p>
+<form method="POST" action="{{ url_for('.delete_product', id=product.id) }}">
+    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
+</form>
 {% endblock %}
