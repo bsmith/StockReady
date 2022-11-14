@@ -123,6 +123,7 @@ nav.home > ul {
     list-style: none;
     display: flex;
     flex-direction: column;
+    font-size: 2rem;
 }
 
 nav.home > ul > li {
@@ -253,4 +254,38 @@ details > summary > h2 {
 }
 
 /* Edit product type */
+/* No styles needed! */
 
+/* All manufacturers */
+.manufacturer-list {
+    list-style: none;
+    padding: 0;
+}
+
+.manufacturer-list > li > a {
+    text-decoration: inherit;
+}
+
+.manufacturer-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: grid;
+    grid-template-areas: "full-name" "brand";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr;
+    justify-items: start;
+    align-items: center;
+}
+
+.manufacturer-row .full-name {
+    grid-area: full-name;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.manufacturer-row .short-brand-name {
+    grid-area: brand;
+    font-size: 1rem;
+    font-weight: normal;
+}
