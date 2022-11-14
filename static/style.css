@@ -320,6 +320,54 @@ nav.home > ul > li > a {
     grid-area: action;
 }
 
+.stock-details {
+    /* border-bottom: 4px solid var(--border-color); */
+    border-left: 8px solid var(--hero-color-bg);
+    border-right: 8px solid var(--hero-color-bg);
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    display: grid;
+    grid-template-areas: "retail soh" "cost soh" "blank warn";
+    grid-template-rows: repeat(3, minmax(2rem, 1fr));
+    grid-template-columns: 1fr 4rem;
+    justify-items: start;
+    align-items: center;
+}
+
+.stock-details .cost-price {
+    grid-area: cost;
+}
+
+.stock-details .retail-price {
+    grid-area: retail;
+}
+
+.stock-details .stock-on-hand {
+    grid-area: soh;
+    font-size: 2.5rem;
+    justify-self: center;
+    align-self: center;
+}
+
+.stock-details .warning {
+    grid-area: warn;
+    justify-self: center;
+}
+
+.stock-details .warning > div {
+    outline: 4px solid var(--problem-color);
+    border-radius: 4px;
+    padding: 0px 4px;
+}
+
+.stock-details h3 {
+    display: inline;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+    margin-bottom: 0.25rem;
+}
+
 .product-detail .details {
     border-bottom: 4px solid var(--border-color);
 }

@@ -37,6 +37,17 @@
 #}
 
     <section class="stock-details">
+        <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
+        <div class="cost-price"><h3>Cost Price:</h3> £{{ product.cost_price }}</div>
+        <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
+        <div class="warning">
+            {% if product.is_out_of_stock() %}
+                <div class="out-of-stock">OUT</div>
+            {% endif %}
+            {% if product.is_stock_low() %}
+                <div class="low-stock">LOW</div>
+            {% endif %}
+        </div>
     </section>
 
     <div class="details">
