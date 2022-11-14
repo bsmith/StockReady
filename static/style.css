@@ -83,7 +83,7 @@ nav.actionbar > ul {
     list-style: none;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: space-between;
 }
 nav.actionbar > ul > li > a {
@@ -195,13 +195,22 @@ nav.home > ul > li > a {
 }
 
 /* All products */
+.sticky-section-header {
+    position: sticky;
+    top: 0;
+    padding-top: 0.25rem;
+    background-color: white;
+    color: black;
+    /* outline: 1px dashed orange; */
+}
+
 .manufacturer-header {
     border-bottom: 4px solid var(--border-color);
     margin: 0.25rem 0rem 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline
+    align-items: baseline;
 }
 
 .manufacturer-group .manufacturer-header {

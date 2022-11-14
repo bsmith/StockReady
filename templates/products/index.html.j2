@@ -12,20 +12,23 @@
 {% block content %}
 {% for manufacturer in all_manufacturers %}
     <article id="manufacturer-{{ manufacturer.id }}"" class="manufacturer-group">
-        <header class="manufacturer-header">
-            <h2 class="short-brand-name">{{ manufacturer.short_brand_name }}</h2>
-            <nav class="actionbar">
-                <ul>
-                    <li><a href="{{ url_for('manufacturers.show_manufacturer', id=manufacturer.id) }}">Details</a><br></li>
-                    {% if loop.previtem %}
-                    <li><a href="#manufacturer-{{ loop.previtem.id }}">Prev</a></li>
-                    {% endif %}
-                    {% if loop.nextitem %}
-                    <li><a href="#manufacturer-{{ loop.nextitem.id }}">Next</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </header>
+        <div class="sticky-section-header">
+            <header class="manufacturer-header">
+                <h2 class="short-brand-name">{{ manufacturer.short_brand_name }}</h2>
+                <nav class="actionbar">
+                    <ul>
+                        <li><a href="{{ url_for('manufacturers.show_manufacturer', id=manufacturer.id) }}">Details</a><br></li>
+                        {% if loop.previtem %}
+                        <li><a href="#manufacturer-{{ loop.previtem.id }}">Prev</a></li>
+                        {% endif %}
+                        {% if loop.nextitem %}
+                        <li><a href="#manufacturer-{{ loop.nextitem.id }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
         <ul class="product-list">
         {% if not products_by_manufacturer_ids[manufacturer.id] %}
             <li class="noproducts">No products from manufacturer</li>
