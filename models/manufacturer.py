@@ -10,3 +10,9 @@ class Manufacturer:
         self.customer_website = customer_website
         self.customer_telephone = customer_telephone
         self.id = id
+
+    def has_trade_contacts(self):
+        return self.trade_website or self.trade_telephone
+
+    def has_customer_contacts(self):
+        return self.customer_website or self.customer_telephone
