@@ -1,10 +1,14 @@
 *, *::after, *::before { box-sizing: border-box }
 body, p, h1, h2, h3, h4, h5, h6, ul, ol { margin: 0 }
-
-* { outline: 1px dashed greenyellow }
+a { color: inherit }
+a:visited { color: inherit }
+/* * { outline: 1px dashed greenyellow } */
 
 :root {
     --border-color: grey;
+    --hero-color-bg: rebeccapurple;
+    --hero-color-fg: white;
+    --problem-color: maroon;
 }
 
 /* FONTS */
@@ -19,6 +23,20 @@ body {
     font-size: 4rem;
 }
 
+h1, h2 { font-size: 2rem }
+h3, h4 { font-size: 1.5rem }
+h5, h6 { font-size: 1rem }
+
+/* BASE COLOURS */
+body > header {
+    background-color: var(--hero-color-bg);
+    color: var(--hero-color-fg);
+}
+body, body > main, body > footer {
+    background-color: white;
+    color: black;
+}
+
 /* COMMON ELEMENTS */
 header {
     display: flex;
@@ -27,11 +45,33 @@ header {
 
 header > h1 {
     text-align: left;
+    padding: 0.5rem;
+}
+
+header > nav {
+    background-color: white;
+    color: black;
 }
 
 footer {
     font-size: 0.5rem;
     margin-top: 2rem;
+}
+
+/* Action bars */
+nav.actionbar > ul {
+    padding: 0.25rem 1rem;
+    gap: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+nav.actionbar > ul > li > a {
+    text-transform: uppercase;
+    text-decoration: none;
+    /* outline: 1px solid red; */
 }
 
 /* PAGE SPECIFIC ELEMENTS */
@@ -67,6 +107,80 @@ nav.home > ul > li > a {
     align-items: center;
     width: 100%;
     height: 100%;
+    text-transform: none;
 }
 
 /* All products */
+.manufacturer-header {
+    border-bottom: 4px solid var(--border-color);
+    margin: 0.25rem 1.5rem 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline
+}
+
+.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+.product-list > li > a {
+    text-decoration: inherit;
+}
+
+.noproducts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: grid;
+    grid-template-areas: "desc price soh" "feat feat soh";
+    grid-template-rows: minmax(2rem, 1fr) 2rem;
+    grid-template-columns: 1fr 6rem 4rem;
+    justify-items: start;
+    align-items: center;
+}
+
+.product-row .short-description {
+    grid-area: desc;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+.product-row .retail-price {
+    grid-area: price;
+    justify-self: stretch;
+    text-align: right;
+    padding-right: 0.25rem;
+}
+
+.product-row .stock-on-hand {
+    grid-area: soh;
+    font-size: 2.5rem;
+    justify-self: center;
+    align-self: center;
+}
+
+.product-row .features {
+    grid-area: feat;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.product-row .feature {
+    outline: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0px 4px;
+}
+
+.product-row .out-of-stock {
+    outline-color: var(--problem-color);
+    outline-width: 4px;
+}
