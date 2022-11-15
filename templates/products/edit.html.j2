@@ -40,7 +40,10 @@
     <input id="up-discontinued" name="discontinued" type="checkbox" {% if product.discontinued %}checked{% endif %}>
     <button type="submit">update product</button>
 </form>
-<form method="POST" action="{{ url_for('.delete_product', id=product.id) }}">
-    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
+<form id="delete-product" method="POST" action="{{ url_for('.delete_product', id=product.id) }}">
+    {% if not product.allow_deletion() %}
+    <p>Products can only be deleted when they are discontinued and have zero inventory</p>
+    {% endif %}
+    <button class="danger" type="submit" {% if not product.allow_deletion() %}disabled aria-disabled="true"{% endif %}>delete</button>
 </form>
 {% endblock %}

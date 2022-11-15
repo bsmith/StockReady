@@ -40,3 +40,6 @@ class Product:
         if not self.discontinued:
             return False
         return not (self.stock_on_hand > 0)
+
+    def allow_deletion(self):
+        return self.stock_on_hand == 0 and self.discontinued

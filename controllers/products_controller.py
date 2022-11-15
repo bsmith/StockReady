@@ -96,14 +96,10 @@ def _format_description(text):
     for line in lines:
         if len(line) > 0:
             paragraphs[-1].append(line)
-            print("append line", line)
         else:
             if len(paragraphs[-1]) > 0:
                 paragraphs.append([])
-                print("new paragraph")
-    print(paragraphs)
     paragraphs = [Markup("<br>").join(lines) for lines in paragraphs]
-    print(paragraphs)
     def wrap_p(text):
         return Markup("<p>") + text + Markup("</p>\n")
     return Markup("").join(wrap_p(par) for par in paragraphs)
@@ -119,8 +115,7 @@ def edit_product(id):
     product = product_repository.select(id)
     all_product_types = product_type_repository.select_all()
     all_manufacturers = manufacturer_repository.select_all()
-    allow_delete = True
-    return render_template('products/edit.html.j2', product=product, all_product_types=all_product_types, all_manufacturers=all_manufacturers, allow_delete=allow_delete)
+    return render_template('products/edit.html.j2', product=product, all_product_types=all_product_types, all_manufacturers=all_manufacturers)
 
 @products_blueprint.route('/products/<int:id>', methods=["POST"])
 def update_product(id):
@@ -130,9 +125,12 @@ def update_product(id):
     for key, value in validated.items():
         setattr(product, key, value)
     product_repository.update(product)
-    return redirect(url_for('.show_product', id=product.id))
+    return redirect(url_for('.edit_product', id=product.id))
 
 @products_blueprint.route('/products/<int:id>/delete', methods=["POST"])
 def delete_product(id):
+    product = product_repository.select(id)
+    if not product.allow_deletion():
+        return redirect(url_for('.edit_product', id=id) + '#delete-product')
     product_repository.delete(id)
     return redirect(url_for('.products'))

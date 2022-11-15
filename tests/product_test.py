@@ -168,3 +168,20 @@ class TestProduct(unittest.TestCase):
             discontinued=None
         )
         self.assertFalse(test_product.discontinued)
+
+    # Tests added for allow_deletion
+    def test_allow_deletion__not_discontinued_with_stock(self):
+        self.product_filled.stock_on_hand = 1
+        self.assertFalse(self.product_filled.allow_deletion())
+
+    def test_allow_deletion__not_discontinued_without_stock(self):
+        self.product_filled.stock_on_hand = 0
+        self.assertFalse(self.product_filled.allow_deletion())
+
+    def test_allow_deletion__discontinued_with_stock(self):
+        self.product_discontinued.stock_on_hand = 1
+        self.assertFalse(self.product_discontinued.allow_deletion())
+
+    def test_allow_deletion__discontinued_without_stock(self):
+        self.product_discontinued.stock_on_hand = 0
+        self.assertTrue(self.product_discontinued.allow_deletion())
