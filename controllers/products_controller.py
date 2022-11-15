@@ -92,7 +92,8 @@ def create_product():
 @products_blueprint.route('/products/<int:id>')
 def show_product(id):
     product = product_repository.select(id)
-    return render_template('products/show.html.j2', product=product)
+    related_products = product_repository.select_related(id)
+    return render_template('products/show.html.j2', product=product, related_products=related_products)
 
 @products_blueprint.route('/products/<int:id>/edit')
 def edit_product(id):

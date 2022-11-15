@@ -3,8 +3,23 @@ from models.product import Product
 import repositories.product_type_repository as product_type_repository
 import repositories.manufacturer_repository as manufacturer_repository
 
-SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products ORDER BY manufacturer_id ASC, id ASC"""
+SQL_SELECT_FIELDS="mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id"
+SQL_SELECT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE id = %s"
+SQL_SELECT_ALL = "SELECT " + SQL_SELECT_FIELDS + " FROM products ORDER BY manufacturer_id ASC, id ASC"""
+SQL_SELECT_RELATED = f"""
+    WITH current_product AS (
+        SELECT products.* FROM products WHERE products.id = %s AND products.screen_size IS NOT NULL
+    ), same_manufacturer AS (
+        SELECT products.* FROM products, current_product WHERE products.manufacturer_id = current_product.manufacturer_id
+    )
+    (SELECT same_manufacturer.id FROM same_manufacturer, current_product
+        WHERE same_manufacturer.screen_size < current_product.screen_size
+        ORDER BY same_manufacturer.screen_size DESC LIMIT 1)
+    UNION
+    (SELECT same_manufacturer.id FROM same_manufacturer, current_product
+        WHERE same_manufacturer.screen_size > current_product.screen_size
+        ORDER BY same_manufacturer.screen_size ASC LIMIT 1)
+"""
 
 class _ModelMakerWithCache:
     def __init__(self):
@@ -44,6 +59,11 @@ def select_all():
     results = run_sql(SQL_SELECT_ALL)
     model_maker = _ModelMakerWithCache()
     products = [model_maker.make_model_from_select_row(row) for row in results]
+    return products
+
+def select_related(id):
+    results = run_sql(SQL_SELECT_RELATED, [id])
+    products = [select(row['id']) for row in results]
     return products
 
 SQL_DELETE = """DELETE FROM products WHERE id = %s"""

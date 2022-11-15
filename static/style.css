@@ -410,6 +410,35 @@ ul.features-row > li.red-feature {
     flex-direction: column;
 }
 
+.related-products {
+    /* border-top: 4px solid var(--border-color); */
+    margin-top: 0.5rem;
+}
+
+.related-products h3 {
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+    margin-bottom: 0.25rem;
+}
+
+.related-products ul {
+    padding: 0;
+    list-style: none'
+}
+
+.related-products-row {
+    border: 2px solid var(--border-color);
+    margin: 0.25rem 1rem;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-products-row a {
+    text-decoration: none;
+}
+
 /* Maintain product types */
 details > summary > h2 {
     display: inline;

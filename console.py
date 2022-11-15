@@ -61,7 +61,7 @@ if False:
     print("")
 
 # Exercise the Product Repository
-if True:
+if False:
     all_products = product_repository.select_all()
     for product in all_products:
         print("select_all:", product.__dict__)
@@ -79,5 +79,16 @@ if True:
     print("update:", product_repository.select(new_product.id).__dict__)
     product_repository.delete(new_product.id)
     print("")
+
+# Exercise finding related products
+if True:
+    # find a 48" TV
+    all_products = product_repository.select_all()
+    product_GS48BBB = [p for p in all_products if p.mpn == "GS48BBB"][0]
+    print("GS48BBB:", product_GS48BBB.__dict__)
+
+    related_products = product_repository.select_related(product_GS48BBB.id)
+    for product in related_products:
+        print("related product:", product.__dict__)
 
 # pdb.set_trace()

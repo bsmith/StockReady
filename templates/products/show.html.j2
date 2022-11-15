@@ -97,7 +97,22 @@
         <p>{{ product.get_longer_description() }}</p>
     </section>
 
-    {# XXX Similar products #}
+    <section class="related-products">
+        <h3>Related products:</h3>
+        <ul>
+        {% for product in related_products %}
+            <li class="related-products-row">
+                <a href="{{ url_for('.show_product', id=product.id) }}">
+                    <div>{{ product.screen_size }}"</div>
+                    <div>{{ product.mpn }}</div>
+                    <div>{{ product.short_description }}</div>
+                </a>
+            </li>
+        {% else %}
+            <li class="norelatedproducts">No related products</li>
+        {% endfor %}
+        </ul>
+    </section>
 
 </article>
 {% endblock %}
