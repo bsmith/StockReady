@@ -1,4 +1,5 @@
 from decimal import Decimal
+from itertools import groupby
 
 from flask import Blueprint, render_template, request, url_for, redirect
 
@@ -23,13 +24,15 @@ def products():
     all_manufacturers = manufacturer_repository.select_all()
     all_manufacturers.sort(key=lambda m: m.short_brand_name)
     all_products = product_repository.select_all()
-    all_products.sort(key=lambda p: p.id)
+
+    def keyfunc(product):
+        return product.manufacturer.id
+    # itertools.groupby requires a sort before grouping
+    all_products.sort(key=keyfunc)
     products_by_manufacturer_ids = {} # dictionary of lists
-    for product in all_products:
-        if product.manufacturer.id not in products_by_manufacturer_ids:
-            products_by_manufacturer_ids[product.manufacturer.id] = [product]
-        else:
-            products_by_manufacturer_ids[product.manufacturer.id].append(product)
+    for k, g in groupby(all_products, key=keyfunc):
+        products_by_manufacturer_ids[k] = list(g)
+
     return render_template('products/index.html.j2', all_products=all_products, all_manufacturers=all_manufacturers,
         products_by_manufacturer_ids=products_by_manufacturer_ids)
 
