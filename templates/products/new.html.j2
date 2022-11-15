@@ -15,7 +15,7 @@
     <select id="up-manufacturer" name="manufacturer_id" required>
         <option value="" disabled selected hidden>Manufacturer</option>
     {% for manufacturer in all_manufacturers %}
-        <option>{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
+        <option value="{{ manufacturer.id }}">{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
     {% endfor %}
     </select>
     <label for="up-short-description">Short Description:</label>
@@ -26,7 +26,7 @@
     <select id="up-product-type" name="product_type_id" required>
         <option value="" disabled selected hidden>Product Type</option>
     {% for product_type in all_product_types %}
-        <option>{{ product_type.name }}</option>
+        <option value="{{ product_type.id }}">{{ product_type.name }}</option>
     {% endfor %}
     </select>
     <label for="up-screen-size">Screen Size: (inches, optional)</label>
