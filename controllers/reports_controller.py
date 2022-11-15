@@ -23,3 +23,12 @@ def out_of_stock():
     products = product_repository.select_out_of_stock()
     return render_template('reports/outofstock.html.j2',
         products=products)
+
+@reports_blueprint.route("/reports/allstock")
+def all_stock():
+    products = product_repository.select_all()
+    financial_report = FinancialReport()
+    financial_report.calc_report(products)
+    return render_template('reports/allstock.html.j2',
+        financial_report=financial_report,
+        products=products)
