@@ -40,6 +40,9 @@
         <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
         <ul class="features-row">
+            {% if product.discontinued %}
+            <li class="red-feature">D/C</li>
+            {% endif %}
             {% if product.is_out_of_stock() %}
             <li class="red-feature">OUT OF STOCK</li>
             {% elif product.is_stock_low() %}

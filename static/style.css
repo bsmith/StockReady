@@ -133,6 +133,12 @@ form input::placeholder {
     opacity: 1;
 }
 
+form input[type="checkbox"] {
+    align-self: center;
+    width: 2rem;
+    height: 2rem;
+}
+
 form select {
     font-size: inherit;
     padding: 0.5rem 0.25rem;

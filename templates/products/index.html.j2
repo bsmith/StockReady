@@ -1,7 +1,8 @@
 {% extends "base.html.j2" %}
-{% block title %}All Inventory{% endblock %}
+{% set title %}{% if filtered %}{{ filter_msg }} (Filtered){% else %}All Products{% endif %}{% endset %}
+{% block title %}{{ title }}{% endblock %}
 {% block header %}
-<h1>All Inventory</h1>
+<h1>{{ title }}</h1>
 <nav class="actionbar">
     <ul>
         <li><a href="{{ url_for('home') }}">Home</a></li>
@@ -10,7 +11,7 @@
 </nav>
 {% endblock %}
 {% block content %}
-{% for manufacturer in all_manufacturers %}
+{% for manufacturer in manufacturers %}
     <section id="manufacturer-{{ manufacturer.id }}"" class="manufacturer-group">
         <div class="sticky-section-header">
             <header class="manufacturer-header">
@@ -41,6 +42,9 @@
                         <div class="retail-price">£{{ product.retail_price }}</div>
                         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
                         <ul class="features-row">
+                            {% if product.discontinued %}
+                            <li class="red-feature">D/C</li>
+                            {% endif %}
                             {% if product.is_out_of_stock() %}
                             <li class="red-feature">OUT</li>
                             {% endif %}

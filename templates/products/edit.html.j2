@@ -36,6 +36,8 @@
     <input id="up-cost-price" name="cost_price" type="text" value="{{ product.cost_price }}" required>
     <label for="up-retail-price">Retail Price: (£)</label>
     <input id="up-retail-price" name="retail_price" type="text" value="{{ product.retail_price }}" required>
+    <label for="up-discontinued">Discontinued:</label>
+    <input id="up-discontinued" name="discontinued" type="checkbox" {% if product.discontinued %}checked{% endif %}>
     <button type="submit">update product</button>
 </form>
 <form method="POST" action="{{ url_for('.delete_product', id=product.id) }}">

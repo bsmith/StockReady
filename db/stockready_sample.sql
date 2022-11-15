@@ -215,7 +215,7 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
         NULL,
         (SELECT id FROM product_types WHERE name = 'Soundbar'),
         NULL, -- screen size
-        4, -- SOH
+        0, -- SOH
         40.00, -- cost price
         55.00 -- retail price
     ),
@@ -245,7 +245,7 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
         'BluePoint 28" LCD TV',
         (SELECT id FROM product_types WHERE name = 'Television'),
         28, -- screen size
-        6, -- SOH
+        0, -- SOH
         100.00, -- cost price
         170.00 -- retail price
     ),
@@ -279,3 +279,6 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
         160.00, -- cost price
         260.00 -- retail price
     );
+
+UPDATE products SET discontinued = TRUE WHERE
+    mpn IN ('WVP_WM_48', 'WVP_WM_85', 'Soundbar', '670032', '680048');

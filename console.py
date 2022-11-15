@@ -70,10 +70,11 @@ if True:
     manufacturer = manufacturer_repository.select_all()[-1]
     product_type = product_type_repository.select_all()[-1]
     new_product = Product("MPN", manufacturer, "Short", None, product_type,
-        None, 0, Decimal(10), Decimal(20))
+        None, 0, Decimal(10), Decimal(20), discontinued=False)
     product_repository.save(new_product)
     print("save:", new_product.__dict__)
     new_product.screen_size = 20
+    new_product.discontinued = True
     product_repository.update(new_product)
     print("update:", product_repository.select(new_product.id).__dict__)
     product_repository.delete(new_product.id)

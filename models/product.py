@@ -1,6 +1,8 @@
 class Product:
     def __init__(self, mpn, manufacturer, short_description,
-            long_description, product_type, screen_size, stock_on_hand, cost_price, retail_price, id=None):
+            long_description, product_type, screen_size,
+            stock_on_hand, cost_price, retail_price,
+            discontinued=False, id=None):
         self.mpn = mpn
         self.manufacturer = manufacturer
         self.short_description = short_description
@@ -10,6 +12,7 @@ class Product:
         self.stock_on_hand = stock_on_hand
         self.cost_price = cost_price
         self.retail_price = retail_price
+        self.discontinued = False if discontinued is None else discontinued
         self.id = id
 
     def get_longer_description(self):
@@ -32,3 +35,8 @@ class Product:
 
     def calculate_profit_margin(self):
         return (self.retail_price - self.cost_price) / self.retail_price
+
+    def should_hide_discontinued_product(self):
+        if not self.discontinued:
+            return False
+        return not (self.stock_on_hand > 0)
