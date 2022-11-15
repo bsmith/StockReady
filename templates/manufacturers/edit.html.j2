@@ -24,7 +24,10 @@
     <input id="um-customer-telephone" name="customer_telephone" type="tel" value="{{ manufacturer.customer_telephone|default('', True) }}" placeholder="None">
     <button type="submit">update manufacturer</button>
 </form>
-<form method="POST" action="{{ url_for('.delete_manufacturer', id=manufacturer.id) }}">
+<form class="delete-manufacturer" method="POST" action="{{ url_for('.delete_manufacturer', id=manufacturer.id) }}">
+    <p>Warning: Deleting a manufacturer will delete all associated products.</p>
+    <label for="dm-confirm-delete">Confirm you really want to delete:</label>
+    <input id="'dm-confirm-delete" name="confirm_delete" type="checkbox">
     <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
 </form>
 {% endblock %}

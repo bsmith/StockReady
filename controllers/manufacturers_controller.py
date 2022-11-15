@@ -67,5 +67,7 @@ def update_manufacturer(id):
 
 @manufacturers_blueprint.route('/manufacturers/<int:id>/delete', methods=["POST"])
 def delete_manufacturer(id):
+    if 'confirm_delete' not in request.form:
+        return redirect(url_for('.edit_manufacturer', id=id))
     manufacturer_repository.delete(id)
     return redirect(url_for('.manufacturers'))

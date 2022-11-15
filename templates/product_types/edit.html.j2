@@ -15,6 +15,9 @@
     <button type="submit">update product type</button>
 </form>
 <form class="delete-product-type" method="POST" action="{{ url_for('.delete_product_type', id=product_type.id) }}">
+    <p>Warning: Deleting a product type will delete all associated products.</p>
+    <label for="dpt-confirm-delete">Confirm you really want to delete:</label>
+    <input id="dpt-confirm-delete" name="confirm_delete" type="checkbox">
     <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
 </form>
 {% endblock %}

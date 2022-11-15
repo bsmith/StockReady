@@ -52,5 +52,7 @@ def update_product_type(id):
 
 @product_types_blueprint.route('/product_types/<int:id>/delete', methods=["POST"])
 def delete_product_type(id):
+    if 'confirm_delete' not in request.form:
+        return redirect(url_for('.edit_product_type', id=id))
     product_type_repository.delete(id)
     return redirect(url_for('.product_types'))
