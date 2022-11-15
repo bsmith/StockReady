@@ -6,23 +6,44 @@ import repositories.manufacturer_repository as manufacturer_repository
 SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products WHERE id = %s"""
 SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products ORDER BY manufacturer_id ASC, id ASC"""
 
-def _make_model_from_select_row(row):
-    columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'discontinued', 'id'
-    kwargs = dict((column, row[column]) for column in columns)
-    manufacturer = manufacturer_repository.select(row['manufacturer_id'])
-    product_type = product_type_repository.select(row['product_type_id'])
-    product = Product(manufacturer=manufacturer, product_type=product_type, **kwargs)
-    return product
+class _ModelMakerWithCache:
+    def __init__(self):
+        self.manufacturer_cache = {}
+        self.product_type_cache = {}
+
+    def get_product_type_by_id(self, id):
+        if id in self.product_type_cache:
+            return self.product_type_cache[id]
+        product_type = product_type_repository.select(id)
+        self.product_type_cache[id] = product_type
+        return product_type
+    
+    def get_manufacturer_by_id(self, id):
+        if id in self.manufacturer_cache:
+            return self.manufacturer_cache[id]
+        manufacturer = manufacturer_repository.select(id)
+        self.manufacturer_cache[id] = manufacturer
+        return manufacturer
+
+    def make_model_from_select_row(self, row):
+        columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'discontinued', 'id'
+        kwargs = dict((column, row[column]) for column in columns)
+        manufacturer = self.get_manufacturer_by_id(row['manufacturer_id'])
+        product_type = self.get_product_type_by_id(row['product_type_id'])
+        product = Product(manufacturer=manufacturer, product_type=product_type, **kwargs)
+        return product
 
 def select(id):
     results = run_sql(SQL_SELECT, [id])
     if results:
-        return _make_model_from_select_row(results[0])
+        model_maker = _ModelMakerWithCache()
+        return model_maker.make_model_from_select_row(results[0])
     return None
 
 def select_all():
     results = run_sql(SQL_SELECT_ALL)
-    products = [_make_model_from_select_row(row) for row in results]
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
     return products
 
 SQL_DELETE = """DELETE FROM products WHERE id = %s"""

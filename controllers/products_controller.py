@@ -50,7 +50,7 @@ def current_inventory():
 
     manufacturers = []
     for manufacturer_id in products_by_manufacturer_ids.keys():
-        manufacturers.append(manufacturer_repository.select(manufacturer_id))
+        manufacturers.append(products_by_manufacturer_ids[manufacturer_id][0].manufacturer)
     manufacturers.sort(key=lambda m: m.short_brand_name)
 
     return render_template('products/index.html.j2',
