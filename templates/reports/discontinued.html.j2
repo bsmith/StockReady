@@ -1,0 +1,80 @@
+{% extends "base.html.j2" %}
+{% block title %}Discontinued Report{% endblock %}
+{% block header %}
+<h1>Discontinued Report</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.reports') }}">All Reports</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<aside class="best-viewed-on-pc">
+    <p>Reports are best viewed on PC</p>
+</aside>
+<article class="report">
+    <section>
+        <h2>Financials</h2>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Total cost:</th>
+                    <td>£{{ total_cost }}</td>
+                </tr>
+                <tr>
+                    <th>Total retail:</th>
+                    <td>£{{ total_retail }}</td>
+                </tr>
+                <tr>
+                    <th>Potential Profit/(Loss):</th>
+                    <td>
+                        {% if potential_profit < 0 %}
+                        £({{ potential_profit }})
+                        {% else %}
+                        £{{ potential_profit}}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Products</h2>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Description</th>
+                    <th>Stock on hand</th>
+                    <th>Total Cost (£)</th>
+                    <th>Unit Retail (£)</th>
+                    <th>Profit</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.manufacturer.short_brand_name }}</td>
+                    <td>{{ product.short_description }}</td>
+                    <td>{{ product.stock_on_hand }}</td>
+                    <td>{{ product.stock_on_hand * product.cost_price }}</td>
+                    <td>{{ product.retail_price }}</td>
+                    <td>{{ "{:.1f}%".format(product.calculate_profit_margin() * 100) }}</td>
+                    <td>
+                        <nav class="actionbar">
+                            <ul>
+                                <li><a href="{{ url_for('products.show_product', id=product.id) }}">details</a></li>
+                            </ul>
+                        </nav>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</article>
+{% endblock %}

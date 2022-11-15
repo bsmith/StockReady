@@ -179,6 +179,14 @@ form button[disabled] {
     color: var(--disabled-color-fg);
 }
 
+/* Sadly reports don't fit on small screens */
+.best-viewed-on-pc {
+    margin: 0.25rem 1.5rem 0.5rem;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: oblique;
+}
+
 /* PAGE SPECIFIC ELEMENTS */
 
 /* Homepage */

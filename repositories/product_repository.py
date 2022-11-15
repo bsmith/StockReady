@@ -3,8 +3,10 @@ from models.product import Product
 import repositories.product_type_repository as product_type_repository
 import repositories.manufacturer_repository as manufacturer_repository
 
-SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products ORDER BY manufacturer_id ASC, id ASC"""
+SQL_SELECT_FIELDS="mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id"
+SQL_SELECT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE id = %s"
+SQL_SELECT_ALL = "SELECT " + SQL_SELECT_FIELDS + " FROM products ORDER BY manufacturer_id ASC, id ASC"""
+SQL_SELECT_DC = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE discontinued = TRUE"
 
 class _ModelMakerWithCache:
     def __init__(self):
@@ -42,6 +44,12 @@ def select(id):
 
 def select_all():
     results = run_sql(SQL_SELECT_ALL)
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
+    return products
+
+def select_discontinued():
+    results = run_sql(SQL_SELECT_DC)
     model_maker = _ModelMakerWithCache()
     products = [model_maker.make_model_from_select_row(row) for row in results]
     return products

@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from controllers.products_controller import products_blueprint
 from controllers.manufacturers_controller import manufacturers_blueprint
 from controllers.product_types_controller import product_types_blueprint
+from controllers.reports_controller import reports_blueprint
 
 def create_app():
     app = Flask(__name__)
@@ -14,6 +15,7 @@ def create_app():
     app.register_blueprint(products_blueprint)
     app.register_blueprint(manufacturers_blueprint)
     app.register_blueprint(product_types_blueprint)
+    app.register_blueprint(reports_blueprint)
 
     @app.route('/')
     def home():
