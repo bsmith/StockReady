@@ -14,10 +14,18 @@
     <header class="manufacturer-header">
         <h2 class="full-name">{{ manufacturer.full_name }}</h2>
         <h3 class="short-brand-name">{{ manufacturer.short_brand_name }}</h3>
-
+        {% if product_count > 1 %}
+        <p>{{ product_count }} products from manufacturer</p>
+        {% elif product_count == 1 %}
+        <p>1 product from manufacturer</p>
+        {% endif %}
         <nav class="actionbar">
             <ul>
+                {% if product_count > 0 %}
                 <li><a href="{{ url_for('products.products') }}#manufacturer-{{ manufacturer.id }}">All products by {{ manufacturer.short_brand_name }}</a></li>
+                {% else %}
+                <li><a href="{{ url_for('products.new_product') }}">New product</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>

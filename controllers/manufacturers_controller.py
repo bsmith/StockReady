@@ -46,7 +46,8 @@ def create_manufacturer():
 @manufacturers_blueprint.route('/manufacturers/<int:id>')
 def show_manufacturer(id):
     manufacturer = manufacturer_repository.select(id)
-    return render_template('manufacturers/show.html.j2', manufacturer=manufacturer)
+    product_count = manufacturer_repository.count_products_from_manufacturer(id)
+    return render_template('manufacturers/show.html.j2', manufacturer=manufacturer, product_count=product_count)
 
 @manufacturers_blueprint.route('/manufacturers/<int:id>/edit')
 def edit_manufacturer(id):

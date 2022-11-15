@@ -50,3 +50,9 @@ def update(manufacturer):
     values += [manufacturer.id]
     run_sql(SQL_UPDATE, values, do_fetchall=False)
     return manufacturer
+
+SQL_COUNT_PRODUCTS = "SELECT COUNT(id) AS count FROM products WHERE manufacturer_id = %s"
+
+def count_products_from_manufacturer(id):
+    results = run_sql(SQL_COUNT_PRODUCTS, [id])
+    return results[0]['count']
