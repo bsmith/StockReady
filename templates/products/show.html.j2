@@ -41,6 +41,9 @@
         <div class="cost-price"><h3>Cost Price:</h3> £{{ product.cost_price }}</div>
         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
         <div class="warning">
+            {% if product.discontinued %}
+                <div class="discontinued">D/C</div>
+            {% endif %}
             {% if product.is_out_of_stock() %}
                 <div class="out-of-stock">OUT</div>
             {% endif %}

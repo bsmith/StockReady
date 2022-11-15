@@ -4,7 +4,7 @@ import repositories.product_type_repository as product_type_repository
 import repositories.manufacturer_repository as manufacturer_repository
 
 SQL_SELECT = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products"""
+SQL_SELECT_ALL = """SELECT mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued, id FROM products ORDER BY manufacturer_id ASC, id ASC"""
 
 def _make_model_from_select_row(row):
     columns = 'mpn', 'short_description', 'long_description', 'screen_size', 'stock_on_hand', 'cost_price', 'retail_price', 'discontinued', 'id'

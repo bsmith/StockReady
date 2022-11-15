@@ -7,6 +7,7 @@
 {% block content %}
 <nav class="home">
     <ul>
+        <li><a href="{{ url_for('products.current_inventory') }}">Current Inventory</a></li>
         <li><a href="{{ url_for('products.products') }}">All products</a></li>
         <li><a href="{{ url_for('manufacturers.manufacturers') }}">All manufacturers</a></li>
         <li><a href="{{ url_for('product_types.product_types') }}">Maintain product types</a></li>
