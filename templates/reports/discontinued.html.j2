@@ -20,19 +20,19 @@
             <tbody>
                 <tr>
                     <th>Total cost:</th>
-                    <td>£{{ total_cost }}</td>
+                    <td>£{{ financial_report.total_cost }}</td>
                 </tr>
                 <tr>
                     <th>Total retail:</th>
-                    <td>£{{ total_retail }}</td>
+                    <td>£{{ financial_report.total_retail }}</td>
                 </tr>
                 <tr>
                     <th>Potential Profit/(Loss):</th>
                     <td>
-                        {% if potential_profit < 0 %}
-                        £({{ potential_profit }})
+                        {% if financial_report.potential_profit < 0 %}
+                        £({{ financial_report.potential_profit }})
                         {% else %}
-                        £{{ potential_profit}}
+                        £{{ financial_report.potential_profit}}
                         {% endif %}
                     </td>
                 </tr>
