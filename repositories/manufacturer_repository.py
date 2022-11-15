@@ -2,7 +2,7 @@ from db.run_sql import run_sql
 from models.manufacturer import Manufacturer
 
 SQL_SELECT = """SELECT full_name, short_brand_name, trade_website, trade_telephone, customer_website, customer_telephone, id FROM manufacturers WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT full_name, short_brand_name, trade_website, trade_telephone, customer_website, customer_telephone, id FROM manufacturers"""
+SQL_SELECT_ALL = """SELECT full_name, short_brand_name, trade_website, trade_telephone, customer_website, customer_telephone, id FROM manufacturers ORDER BY short_brand_name ASC"""
 
 def _make_model_from_select_row(row):
     columns = 'full_name', 'short_brand_name', 'trade_website', 'trade_telephone', 'customer_website', 'customer_telephone', 'id'

@@ -2,7 +2,7 @@ from db.run_sql import run_sql
 from models.product_type import ProductType
 
 SQL_SELECT = """SELECT name, id FROM product_types WHERE id = %s"""
-SQL_SELECT_ALL = """SELECT name, id FROM product_types"""
+SQL_SELECT_ALL = """SELECT name, id FROM product_types ORDER BY name ASC"""
 
 def _make_model_from_select_row(row):
     product_type = ProductType(row['name'], row['id'])
