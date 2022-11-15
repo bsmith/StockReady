@@ -68,6 +68,10 @@ footer {
     margin-top: 2rem;
 }
 
+details > summary {
+    margin-bottom: 4px;
+}
+
 /* This is used on detail pages */
 main > article {
     margin: 0.25rem 1.5rem 0.5rem;
@@ -282,24 +286,29 @@ nav.home > ul > li > a {
     align-self: center;
 }
 
-.product-row .features {
+.product-row .features-row {
+    grid-area: feat;
+}
+
+/* row of features in cartouches */
+ul.features-row {
     list-style: none;
     padding: 0;
-    grid-area: feat;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
 }
 
-.product-row .feature {
+ul.features-row > li.feature {
     outline: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 0px 4px;
 }
 
-.product-row .out-of-stock {
-    outline-color: var(--problem-color);
-    outline-width: 4px;
+ul.features-row > li.red-feature {
+    outline: 4px solid var(--problem-color);
+    border-radius: 4px;
+    padding: 0px 4px;
 }
 
 /* Product details */
@@ -338,37 +347,30 @@ nav.home > ul > li > a {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     display: grid;
-    grid-template-areas: "retail soh" "cost soh" "blank warn";
-    grid-template-rows: repeat(3, minmax(2rem, 1fr));
+    grid-template-areas: "retail soh" "features soh" "costs costs";
+    grid-template-rows: 2rem 2rem 1fr;
     grid-template-columns: 1fr 4rem;
     justify-items: start;
     align-items: center;
 }
 
-.stock-details .cost-price {
-    grid-area: cost;
-}
-
-.stock-details .retail-price {
+.stock-details > .retail-price {
     grid-area: retail;
 }
 
-.stock-details .stock-on-hand {
+.stock-details > .stock-on-hand {
     grid-area: soh;
     font-size: 2.5rem;
     justify-self: center;
     align-self: center;
 }
 
-.stock-details .warning {
-    grid-area: warn;
-    justify-self: center;
+.stock-details > .features-row {
+    grid-area: features;
 }
 
-.stock-details .warning > div {
-    outline: 4px solid var(--problem-color);
-    border-radius: 4px;
-    padding: 0px 4px;
+.stock-details > .costs {
+    grid-area: costs;
 }
 
 .stock-details h3 {

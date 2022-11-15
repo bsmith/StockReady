@@ -38,25 +38,34 @@
 
     <section class="stock-details">
         <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
-        <div class="cost-price"><h3>Cost Price:</h3> £{{ product.cost_price }}</div>
         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
-        <div class="warning">
+        <ul class="features-row">
             {% if product.is_out_of_stock() %}
-                <div class="out-of-stock">OUT</div>
+            <li class="red-feature">OUT OF STOCK</li>
+            {% elif product.is_stock_low() %}
+            <li class="red-feature">LOW STOCK</li>
+            {% else %}
+            <li>IN STOCK</li>
             {% endif %}
-            {% if product.is_stock_low() %}
-                <div class="low-stock">LOW</div>
-            {% endif %}
-        </div>
+        </ul>
+        <details class="costs">
+            <summary>Show costs</summary>
+            <h3>Cost Price:</h3>
+            <div class="cost-price">£{{ product.cost_price }}</div>
+        </details>
     </section>
 
     <div class="details">
         <section class="product-type">
             <h3>Product type:</h3>
+            <p>{{ product.product_type.name}}</p>
             {# we don't need to link to product types #}
-            {#<a href="{{ url_for('product_types.product_types') }}#product.product_type.id">#}
-                <p>{{ product.product_type.name}}</p>
-            {#</a>#}
+            {# XXX link to products by type #}
+            {#<nav class="actionbar">
+                <ul>
+                    <li><a href="{{ url_for('products.products_by_type', product_type_id=product.product_type.id) }}">More by Type</a></li>
+                </ul>
+            </nav>#}
         </section>
 
         <section class="features">

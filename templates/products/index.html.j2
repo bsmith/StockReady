@@ -40,12 +40,12 @@
                         <h3 class="short-description">{{ product.short_description }}</h3>
                         <div class="retail-price">£{{ product.retail_price }}</div>
                         <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
-                        <ul class="features">
+                        <ul class="features-row">
                             {% if product.is_out_of_stock() %}
-                            <li class="feature out-of-stock">OUT</li>
+                            <li class="red-feature">OUT</li>
                             {% endif %}
                             {% if product.is_stock_low() %}
-                            <li class="feature stock-low">LOW</li>
+                            <li class="red-feature">LOW</li>
                             {% endif %}
                             {% if product.screen_size %}
                             <li class="feature screen-size">{{ product.screen_size }}"</li>
