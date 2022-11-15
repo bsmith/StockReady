@@ -112,3 +112,13 @@ class TestProduct(unittest.TestCase):
         self.product_filled.retail_price = 20
         self.product_filled.stock_on_hand = 4
         self.assertTrue(self.product_filled.is_stock_low())
+
+    @unittest.expectedFailure
+    def test_calculate_markup(self):
+        markup = self.product_filled.calculate_markup()
+        self.assertEqual(1, markup) # +100% markup
+
+    @unittest.expectedFailure
+    def test_calculate_profit_margin(self):
+        profit_margin = self.product_filled.calculate_profit_margin()
+        self.assertEqual(0.50, profit_margin) # 50% profit margin
