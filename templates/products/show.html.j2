@@ -50,8 +50,18 @@
         </ul>
         <details class="costs">
             <summary>Show costs</summary>
-            <h3>Cost Price:</h3>
-            <div class="cost-price">£{{ product.cost_price }}</div>
+            <div class="cost-price">
+                <h3>Cost Price:</h3>
+                £{{ product.cost_price }}
+            </div>
+            <div class="markup">
+                <h3>Markup:</h3>
+                {{ "+{:.1f}%".format(product.calculate_markup() * 100) }}
+            </div>
+            <div class="profit-margin">
+                <h3>Profit Margin:</h3>
+                {{ "{:.1f}%".format(product.calculate_profit_margin() * 100) }}
+            </div>
         </details>
     </section>
 

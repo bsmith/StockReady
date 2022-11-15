@@ -26,3 +26,9 @@ class Product:
             return self.stock_on_hand == 1
         else:
             return 1 <= self.stock_on_hand < 6
+
+    def calculate_markup(self):
+        return (self.retail_price - self.cost_price) / self.cost_price
+
+    def calculate_profit_margin(self):
+        return (self.retail_price - self.cost_price) / self.retail_price
