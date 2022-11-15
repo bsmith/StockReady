@@ -52,7 +52,8 @@ header {
     flex-direction: column;
 }
 
-header > h1 {
+header > h1,
+header > h2 {
     text-align: left;
     padding: 0.5rem;
 }
@@ -480,7 +481,7 @@ details > summary > h2 {
     margin: 0.25rem 1rem;
     padding: 0.25rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: baseline;
 }

@@ -22,6 +22,7 @@ SQL_SELECT_RELATED = f"""
 """
 SQL_SELECT_DC = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE discontinued = TRUE"
 SQL_SELECT_OUT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE stock_on_hand = 0"
+SQL_SELECT_BY_TYPE = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE product_type_id = %s"
 
 class _ModelMakerWithCache:
     def __init__(self):
@@ -75,6 +76,12 @@ def select_discontinued():
 
 def select_out_of_stock():
     results = run_sql(SQL_SELECT_OUT)
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
+    return products
+
+def select_by_product_type_id(product_type_id):
+    results = run_sql(SQL_SELECT_BY_TYPE, [product_type_id])
     model_maker = _ModelMakerWithCache()
     products = [model_maker.make_model_from_select_row(row) for row in results]
     return products

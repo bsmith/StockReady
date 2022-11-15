@@ -26,6 +26,7 @@
             <h2>{{product_type.name}}</h2>
             <nav class="actionbar">
                 <ul>
+                    <li><a href="{{ url_for('.products', id=product_type.id) }}">list products</a></li>
                     <li><a href="{{ url_for('.edit_product_type', id=product_type.id) }}">edit</a></li>
                 </ul>
             </nav>

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, url_for, redirect
 
 from models.product_type import ProductType
 import repositories.product_type_repository as product_type_repository
+import repositories.product_repository as product_repository
 
 product_types_blueprint = Blueprint("product_types", __name__)
 
@@ -56,3 +57,9 @@ def delete_product_type(id):
         return redirect(url_for('.edit_product_type', id=id))
     product_type_repository.delete(id)
     return redirect(url_for('.product_types'))
+
+@product_types_blueprint.route('/product_types/<int:id>/products')
+def products(id):
+    product_type = product_type_repository.select(id)
+    products = product_repository.select_by_product_type_id(id)
+    return render_template('product_types/products.html.j2', product_type=product_type, products=products)
