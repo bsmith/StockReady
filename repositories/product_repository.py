@@ -67,6 +67,7 @@ def select_all():
 def select_related(id):
     results = run_sql(SQL_SELECT_RELATED, [id])
     products = [select(row['id']) for row in results]
+    return products
 
 def select_discontinued():
     results = run_sql(SQL_SELECT_DC)
