@@ -20,6 +20,8 @@ SQL_SELECT_RELATED = f"""
         WHERE same_manufacturer.screen_size > current_product.screen_size
         ORDER BY same_manufacturer.screen_size ASC LIMIT 1)
 """
+SQL_SELECT_DC = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE discontinued = TRUE"
+SQL_SELECT_OUT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE stock_on_hand = 0"
 
 class _ModelMakerWithCache:
     def __init__(self):
@@ -64,6 +66,17 @@ def select_all():
 def select_related(id):
     results = run_sql(SQL_SELECT_RELATED, [id])
     products = [select(row['id']) for row in results]
+
+def select_discontinued():
+    results = run_sql(SQL_SELECT_DC)
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
+    return products
+
+def select_out_of_stock():
+    results = run_sql(SQL_SELECT_OUT)
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
     return products
 
 SQL_DELETE = """DELETE FROM products WHERE id = %s"""
@@ -75,8 +88,6 @@ def delete(id):
 
 def delete_all():
     run_sql(SQL_DELETE_ALL, do_fetchall=False)
-
-##### NOT UPDATED BELOW HERE
 
 SQL_INSERT = """INSERT INTO products (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued) VALUES (""" + ", ".join(["%s"]*10) + """) RETURNING id"""
 SQL_UPDATE = """UPDATE products SET (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price, discontinued) = (""" + ", ".join(["%s"]*10) + """) WHERE id = %s"""

@@ -1,0 +1,53 @@
+{% extends "base.html.j2" %}
+{% block title %}Out of Stock Report{% endblock %}
+{% block header %}
+<h1>Out of Stock Report</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.reports') }}">All Reports</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<aside class="best-viewed-on-pc">
+    <p>Reports are best viewed on PC</p>
+</aside>
+<article class="report">
+    <section>
+        <h2>Products</h2>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>MPN</th>
+                    <th>Description</th>
+                    <th>Unit Cost (£)</th>
+                    <th>Unit Retail (£)</th>
+                    <th>Profit</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.manufacturer.short_brand_name }}</td>
+                    <td>{{ product.mpn }}</td>
+                    <td>{{ product.short_description }}</td>
+                    <td>{{ product.cost_price }}</td>
+                    <td>{{ product.retail_price }}</td>
+                    <td>{{ "{:.1f}%".format(product.calculate_profit_margin() * 100) }}</td>
+                    <td>
+                        <nav class="actionbar">
+                            <ul>
+                                <li><a href="{{ url_for('manufacturers.show_manufacturer', id=product.manufacturer.id) }}">contact details</a></li>
+                            </ul>
+                        </nav>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</article>
+{% endblock %}
