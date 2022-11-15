@@ -16,7 +16,9 @@ INSERT INTO manufacturers (full_name, short_brand_name, trade_website, trade_tel
     ('Konosuke Electric Industrial Co., Ltd.', 'Kono', 'https://konoglobal.com/', '+81 874 34 345 67', 'https://kono.co.uk/', '0808 1570123'),
     ('Gold Star Electronics Inc.', 'GS', 'https://gselectronics.com/uk/', '+1 334 555 2143', 'https://gs.co.uk/', '+44 20 7946 0214'),
     ('Wolverhampton Video Products Ltd', 'WVP', 'https://wvp.co.uk/trade/', NULL, 'https://wvp.co.uk/support/', NULL),
-    ('Click Cables Inc', 'OB', NULL, '0141 496 0667', NULL, NULL);
+    ('Click Cables Inc', 'OB', NULL, '0141 496 0667', NULL, NULL),
+    ('BCL Empty Test', 'BCL', NULL, NULL, NULL, NULL)
+    ;
 
 INSERT INTO products (mpn, manufacturer_id, short_description, long_description, product_type_id, screen_size, stock_on_hand, cost_price, retail_price) VALUES
     (
@@ -112,7 +114,12 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
     (
         '55KQ22', (SELECT id FROM manufacturers WHERE short_brand_name = 'Kono'),
         'Kono 55" Quantum',
-        'Kono 4k Quantum SMART 55"',
+        'Kono 4k Quantum SMART 55"
+        
+        The Kono Quantum series incorporates the latest in teleportation technology to really put the actors in your living room!
+        
+        (Caution: May not actually teleport)
+        (Warning: May cause teleportation)',
         (SELECT id FROM product_types WHERE name = 'Television'),
         55, -- screen size
         2, -- SOH
@@ -122,7 +129,12 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
     (
         '65KQ22', (SELECT id FROM manufacturers WHERE short_brand_name = 'Kono'),
         'Kono 65" Quantum',
-        'Kono 4k Quantum SMART 65"',
+        'Kono 4k Quantum SMART 65"
+        
+        The Kono Quantum series incorporates the latest in teleportation technology to really put the actors in your living room!
+        
+        (Caution: May not actually teleport)
+        (Warning: May cause teleportation)',
         (SELECT id FROM product_types WHERE name = 'Television'),
         65, -- screen size
         2, -- SOH
@@ -132,7 +144,12 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
     (
         '75KQ22', (SELECT id FROM manufacturers WHERE short_brand_name = 'Kono'),
         'Kono 75" Quantum',
-        'Kono 4k Quantum SMART 75"',
+        'Kono 4k Quantum SMART 75"
+        
+        The Kono Quantum series incorporates the latest in teleportation technology to really put the actors in your living room!
+        
+        (Caution: May not actually teleport)
+        (Warning: May cause teleportation)',
         (SELECT id FROM product_types WHERE name = 'Television'),
         75, -- screen size
         2, -- SOH
@@ -142,7 +159,12 @@ INSERT INTO products (mpn, manufacturer_id, short_description, long_description,
     (
         '85KQ22', (SELECT id FROM manufacturers WHERE short_brand_name = 'Kono'),
         'Kono 85" Quantum',
-        'Kono 4k Quantum SMART 85"',
+        'Kono 4k Quantum SMART 85"
+        
+        The Kono Quantum series incorporates the latest in teleportation technology to really put the actors in your living room!
+        
+        (<i>Caution</i>: May not actually teleport)
+        (<b>Warning</b>: May cause teleportation)',
         (SELECT id FROM product_types WHERE name = 'Television'),
         85, -- screen size
         4, -- SOH

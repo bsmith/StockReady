@@ -3,6 +3,7 @@ from decimal import Decimal
 from itertools import groupby
 
 from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Markup
 
 from models.product import Product
 import repositories.product_type_repository as product_type_repository
@@ -89,11 +90,29 @@ def create_product():
     product_repository.save(new_product)
     return redirect(url_for('.show_product', id=new_product.id))
 
+def _format_description(text):
+    lines = [line.strip() for line in text.splitlines()]
+    paragraphs = [[]]
+    for line in lines:
+        if len(line) > 0:
+            paragraphs[-1].append(line)
+            print("append line", line)
+        else:
+            if len(paragraphs[-1]) > 0:
+                paragraphs.append([])
+                print("new paragraph")
+    print(paragraphs)
+    paragraphs = [Markup("<br>").join(lines) for lines in paragraphs]
+    print(paragraphs)
+    def wrap_p(text):
+        return Markup("<p>") + text + Markup("</p>\n")
+    return Markup("").join(wrap_p(par) for par in paragraphs)
+
 @products_blueprint.route('/products/<int:id>')
 def show_product(id):
     product = product_repository.select(id)
     related_products = product_repository.select_related(id)
-    return render_template('products/show.html.j2', product=product, related_products=related_products)
+    return render_template('products/show.html.j2', product=product, related_products=related_products, format_description=_format_description)
 
 @products_blueprint.route('/products/<int:id>/edit')
 def edit_product(id):

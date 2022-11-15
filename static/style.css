@@ -410,6 +410,10 @@ ul.features-row > li.red-feature {
     flex-direction: column;
 }
 
+.long-description p {
+    margin-bottom: 1rem;
+}
+
 .related-products {
     /* border-top: 4px solid var(--border-color); */
     margin-top: 0.5rem;

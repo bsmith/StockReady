@@ -94,7 +94,7 @@
     </div>
 
     <section class="long-description">
-        <p>{{ product.get_longer_description() }}</p>
+        {{ format_description(product.get_longer_description()) }}
     </section>
 
     <section class="related-products">
