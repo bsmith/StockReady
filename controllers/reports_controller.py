@@ -17,3 +17,9 @@ def discontinued():
     return render_template('reports/discontinued.html.j2',
         financial_report=financial_report,
         products=dc_products)
+
+@reports_blueprint.route("/reports/outofstock")
+def out_of_stock():
+    products = product_repository.select_out_of_stock()
+    return render_template('reports/outofstock.html.j2',
+        products=products)

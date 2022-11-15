@@ -7,6 +7,7 @@ SQL_SELECT_FIELDS="mpn, manufacturer_id, short_description, long_description, pr
 SQL_SELECT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE id = %s"
 SQL_SELECT_ALL = "SELECT " + SQL_SELECT_FIELDS + " FROM products ORDER BY manufacturer_id ASC, id ASC"""
 SQL_SELECT_DC = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE discontinued = TRUE"
+SQL_SELECT_OUT = "SELECT " + SQL_SELECT_FIELDS + " FROM products WHERE stock_on_hand = 0"
 
 class _ModelMakerWithCache:
     def __init__(self):
@@ -50,6 +51,12 @@ def select_all():
 
 def select_discontinued():
     results = run_sql(SQL_SELECT_DC)
+    model_maker = _ModelMakerWithCache()
+    products = [model_maker.make_model_from_select_row(row) for row in results]
+    return products
+
+def select_out_of_stock():
+    results = run_sql(SQL_SELECT_OUT)
     model_maker = _ModelMakerWithCache()
     products = [model_maker.make_model_from_select_row(row) for row in results]
     return products
