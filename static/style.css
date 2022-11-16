@@ -536,9 +536,10 @@ details > summary > h2 {
 }
 
 @media (min-width: 500px) {
-    header {
+    /* For debugging media queries, make everything red! */
+    /* header {
         background-color: red !important;
-    }
+    } */
 
     nav.actionbar > ul {
         justify-content: start;
