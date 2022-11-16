@@ -1,6 +1,6 @@
 # StockReady
 
-## Codeclan Solo Python/Flask Project
+## Codeclan Solo Python/Flask Project
 
 This is a Python project for the (Codeclan)[https://www.codeclan.com/] software development course.
 
