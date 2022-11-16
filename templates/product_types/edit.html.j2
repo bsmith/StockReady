@@ -1,0 +1,23 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ product_type.name }} — Edit Product Type{% endblock %}
+{% block header %}
+<h1>Edit Product Type</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.product_types') }}#product-type-{{ product_type.id }}">All Product Types</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<form class="update-product-type" method="POST" action="{{ url_for('.update_product_type', id=product_type.id) }}">
+    <label for="upt-name">Name:</label>
+    <input id="upt-name" name="name" type="text" value="{{ product_type.name }}" required>
+    <button type="submit">update product type</button>
+</form>
+<form class="delete-product-type" method="POST" action="{{ url_for('.delete_product_type', id=product_type.id) }}">
+    <p>Warning: Deleting a product type will delete all associated products.</p>
+    <label for="dpt-confirm-delete">Confirm you really want to delete:</label>
+    <input id="dpt-confirm-delete" name="confirm_delete" type="checkbox">
+    <button class="danger" type="submit" {% if not allow_delete %}disabled aria-disabled="true"{% endif %}>delete</button>
+</form>
+{% endblock %}

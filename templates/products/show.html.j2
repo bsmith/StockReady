@@ -1,0 +1,118 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ product.short_description }} — Product Details{% endblock %}
+{% block header %}
+<h1>Product Details</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.products') }}#product-{{ product.id }}">All Products</a></li>
+        <li><a href="{{ url_for('.edit_product', id=product.id) }}">edit</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<article class="product-detail" id="product-{{ product.id }}">
+    <header class="product-header">
+        <h2 class="short-description">{{ product.short_description }}</h2>
+        <h3 class="mpn">{{ product.mpn }}</h3>
+    </header>
+
+    {# XXX I can't decide what this area should look like #}
+    {# it feels like it should look like the area on the manufacturer's detail page that
+       links to products by that manufacturer #}
+    <section class="manufacturer-link">
+        <h3 class="full-name">{{ product.manufacturer.full_name }}</h3>
+        <h4 class="short-brand-name">{{ product.manufacturer.short_brand_name }}</h4>
+        <nav class="actionbar">
+            <ul>
+                <li><a href="{{ url_for('manufacturers.show_manufacturer', id=product.manufacturer.id) }}">{#manufacturer #}details</a></li>
+            </ul>
+        </nav>
+    </section>
+
+{#
+    -- stock and costs
+    stock_on_hand INT NOT NULL,
+    cost_price DECIMAL(10,2) NOT NULL,
+    retail_price DECIMAL(10,2) NOT NULL
+#}
+
+    <section class="stock-details">
+        <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
+        <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
+        <ul class="features-row">
+            {% if product.discontinued %}
+            <li class="red-feature">D/C</li>
+            {% endif %}
+            {% if product.is_out_of_stock() %}
+            <li class="red-feature">OUT OF STOCK</li>
+            {% elif product.is_stock_low() %}
+            <li class="red-feature">LOW STOCK</li>
+            {% else %}
+            <li>IN STOCK</li>
+            {% endif %}
+        </ul>
+        <details class="costs">
+            <summary>Show costs</summary>
+            <div class="cost-price">
+                <h3>Cost Price:</h3>
+                £{{ product.cost_price }}
+            </div>
+            <div class="markup">
+                <h3>Markup:</h3>
+                {{ "+{:.1f}%".format(product.calculate_markup() * 100) }}
+            </div>
+            <div class="profit-margin">
+                <h3>Profit Margin:</h3>
+                {{ "{:.1f}%".format(product.calculate_profit_margin() * 100) }}
+            </div>
+        </details>
+    </section>
+
+    <div class="details">
+        <section class="product-type">
+            <h3>Product type:</h3>
+            <p>{{ product.product_type.name}}</p>
+            {# we don't need to link to product types #}
+            {# XXX link to products by type #}
+            {#<nav class="actionbar">
+                <ul>
+                    <li><a href="{{ url_for('products.products_by_type', product_type_id=product.product_type.id) }}">More by Type</a></li>
+                </ul>
+            </nav>#}
+        </section>
+
+        <section class="features">
+            <h3>Features:</h3>
+            <ul>
+                {% if product.screen_size %}
+                <li class="screen-size">Screen size: {{ product.screen_size }}"</li>
+                {% else %}
+                <li class="nofeatures">No features</li>
+                {% endif %}
+            </ul>
+        </section>
+    </div>
+
+    <section class="long-description">
+        {{ format_description(product.get_longer_description()) }}
+    </section>
+
+    <section class="related-products">
+        <h3>Related products:</h3>
+        <ul>
+        {% for product in related_products %}
+            <li class="related-products-row">
+                <a href="{{ url_for('.show_product', id=product.id) }}">
+                    <div>{{ product.screen_size }}"</div>
+                    <div>{{ product.mpn }}</div>
+                    <div>{{ product.short_description }}</div>
+                </a>
+            </li>
+        {% else %}
+            <li class="norelatedproducts">No related products</li>
+        {% endfor %}
+        </ul>
+    </section>
+
+</article>
+{% endblock %}

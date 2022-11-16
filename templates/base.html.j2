@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{{title}}{% endblock %} — StockReady</title>
+</head>
+<body>
+    <header>
+    {% block header %}
+        <h1>{{title}}</h1>
+        <nav><a href="{{ url_for('home') }}">Home</a></nav>
+    {% endblock %}
+    </header>
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+    <footer>
+    {% block footer %}
+        <p>StockReady — <a href="https://github.com/bsmith/StockReady">github</a> — by <a href="https://github.com/bsmith/">Benjamin Smith</a></p>
+    {% endblock %}
+    </footer>
+</body>
+</html>

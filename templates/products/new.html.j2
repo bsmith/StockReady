@@ -1,0 +1,44 @@
+{% extends "base.html.j2" %}
+{% block title %}New Product{% endblock %}
+{% block header %}
+<h1>New Product</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('.products') }}">All Products</a></li>
+    </ul>
+</nav>
+{% endblock %}{% block content %}
+<form class="create-product" method="POST" action="{{ url_for('.create_product') }}">
+    <label for="up-mpn">MPN:</label>
+    <input id="up-mpn" name="mpn" type="text" placeholder="MPN" required>
+    <label for="up-manufacturer">Manufacturer:</label>
+    <select id="up-manufacturer" name="manufacturer_id" required>
+        <option value="" disabled selected hidden>Manufacturer</option>
+    {% for manufacturer in all_manufacturers %}
+        <option value="{{ manufacturer.id }}">{{ manufacturer.short_brand_name }} — {{ manufacturer.full_name }}</option>
+    {% endfor %}
+    </select>
+    <label for="up-short-description">Short Description:</label>
+    <input id="up-short-description" name="short_description" type="text" placeholder="Short Description" required>
+    <label for="up-long-description">Long Description: (optional)</label>
+    <input id="up-long-description" name="long_description" type="text" placeholder="Long Description (optional)">
+    <label for="up-product-type">Product Type:</label>
+    <select id="up-product-type" name="product_type_id" required>
+        <option value="" disabled selected hidden>Product Type</option>
+    {% for product_type in all_product_types %}
+        <option value="{{ product_type.id }}">{{ product_type.name }}</option>
+    {% endfor %}
+    </select>
+    <label for="up-screen-size">Screen Size: (inches, optional)</label>
+    <input id="up-screen-size" name="screen_size" type="text" placeholder="Screen Size (optional)">
+    <label for="up-stock-on-hand">Stock on Hand: (units)</label>
+    <input id="up-stock-on-hand" name="stock_on_hand" type="number" placeholder="Stock on Hand (units)" required>
+    <label for="up-cost-price">Cost Price: (£)</label>
+    <input id="up-cost-price" name="cost_price" type="text" placeholder="Cost Price (£)" required>
+    <label for="up-retail-price">Retail Price: (£)</label>
+    <input id="up-retail-price" name="retail_price" type="text" placeholder="Retail Price (£)" required>
+    <label for="up-discontinued">Discontinued:</label>
+    <input id="up-discontinued" name="discontinued" type="checkbox">
+    <button type="submit">create product</button>
+</form>
+{% endblock %}

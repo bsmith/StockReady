@@ -1,0 +1,28 @@
+{% extends "base.html.j2" %}
+{% block title %}All Manufacturers{% endblock %}
+{% block header %}
+<h1>All Manufacturers</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('.new_manufacturer') }}">New Manufacturer</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<ul class="manufacturer-list">
+{% for manufacturer in all_manufacturers %}
+    <li>
+        <a href="{{ url_for('.show_manufacturer', id=manufacturer.id) }}">
+            <article id="manufacturer-{{ manufacturer.id }}" class="manufacturer-row">
+                <h2 class="full-name">{{ manufacturer.full_name }}</h2>
+                <h3 class="short-brand-name">{{ manufacturer.short_brand_name }}</h3>
+            </article>
+        </a>
+    </li>
+{% endfor %}
+    <li class="endoflist">
+        End of list
+    </li>
+</ul>
+{% endblock %}

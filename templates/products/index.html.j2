@@ -1,0 +1,70 @@
+{% extends "base.html.j2" %}
+{% set title %}{% if filtered %}{{ filter_msg }} (Filtered){% else %}All Products{% endif %}{% endset %}
+{% block title %}{{ title }}{% endblock %}
+{% block header %}
+<h1>{{ title }}</h1>
+<nav class="actionbar">
+    <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="{{ url_for('.new_product') }}">New Product</a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+{% for manufacturer in manufacturers %}
+    <section id="manufacturer-{{ manufacturer.id }}"" class="manufacturer-group">
+        <div class="sticky-section-header">
+            <header class="manufacturer-header">
+                <h2 class="short-brand-name">{{ manufacturer.short_brand_name }}</h2>
+                <nav class="actionbar">
+                    <ul>
+                        <li><a href="{{ url_for('manufacturers.show_manufacturer', id=manufacturer.id) }}">Details</a><br></li>
+                        {% if loop.previtem %}
+                        <li><a href="#manufacturer-{{ loop.previtem.id }}">Prev</a></li>
+                        {% endif %}
+                        {% if loop.nextitem %}
+                        <li><a href="#manufacturer-{{ loop.nextitem.id }}">Next</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <ul class="product-list">
+        {% if not products_by_manufacturer_ids[manufacturer.id] %}
+            <li class="noproducts">No products from manufacturer</li>
+        {% else %}
+            {% for product in products_by_manufacturer_ids[manufacturer.id] %}
+            <li>
+                <a href="{{ url_for('.show_product', id=product.id) }}">
+                    <article id="product-{{ product.id }}" class="product-row">
+                        <h3 class="short-description">{{ product.short_description }}</h3>
+                        <div class="retail-price">£{{ product.retail_price }}</div>
+                        <div class="stock-on-hand">{{ product.stock_on_hand }}</div>
+                        <ul class="features-row">
+                            {% if product.discontinued %}
+                            <li class="red-feature">D/C</li>
+                            {% endif %}
+                            {% if product.is_out_of_stock() %}
+                            <li class="red-feature">OUT</li>
+                            {% endif %}
+                            {% if product.is_stock_low() %}
+                            <li class="red-feature">LOW</li>
+                            {% endif %}
+                            {% if product.screen_size %}
+                            <li class="feature screen-size">{{ product.screen_size }}"</li>
+                            {% endif %}
+                            <li class="product-type">{{ product.product_type.name }}</li>
+                        </ul>
+                    </article>
+                </a>
+            </li>
+            {% endfor %}
+        {% endif %}
+        </ul>
+    </section>
+{% endfor %}
+    <li class="endoflist">
+        End of list
+    </li>
+{% endblock %}
