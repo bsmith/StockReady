@@ -16,9 +16,6 @@
         <h3 class="mpn">{{ product.mpn }}</h3>
     </header>
 
-    {# XXX I can't decide what this area should look like #}
-    {# it feels like it should look like the area on the manufacturer's detail page that
-       links to products by that manufacturer #}
     <section class="manufacturer-link">
         <h3 class="full-name">{{ product.manufacturer.full_name }}</h3>
         <h4 class="short-brand-name">{{ product.manufacturer.short_brand_name }}</h4>
@@ -28,13 +25,6 @@
             </ul>
         </nav>
     </section>
-
-{#
-    -- stock and costs
-    stock_on_hand INT NOT NULL,
-    cost_price DECIMAL(10,2) NOT NULL,
-    retail_price DECIMAL(10,2) NOT NULL
-#}
 
     <section class="stock-details">
         <div class="retail-price"><h3>Retail Price:</h3> £{{ product.retail_price }}</div>
@@ -74,11 +64,11 @@
             <p>{{ product.product_type.name}}</p>
             {# we don't need to link to product types #}
             {# XXX link to products by type #}
-            {#<nav class="actionbar">
+            <nav class="actionbar">
                 <ul>
-                    <li><a href="{{ url_for('products.products_by_type', product_type_id=product.product_type.id) }}">More by Type</a></li>
+                    <li><a href="{{ url_for('product_types.products', id=product.product_type.id) }}">More by Type</a></li>
                 </ul>
-            </nav>#}
+            </nav>
         </section>
 
         <section class="features">
