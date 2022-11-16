@@ -4,10 +4,24 @@
 
 This is a Python project for the [Codeclan](https://www.codeclan.com/) software development course.
 
-The brief began as: "Build an app which allows a shopkeeper to track their shop's inventory. This is
+The [brief](planning/brief.md) began as: "Build an app which allows a shopkeeper to track their shop's inventory. This is
 not an app which the customer will see, it is an admin/management app for the shop workers."
 
-A sample of the project planning documentation is available in the `planning` directory.
+A sample of the project planning documentation is available in the [planning](planning/) directory.
+
+![screenshots of the application on a mobile phone](planning/screenshots.png)
+
+## Running the application
+
+Using a recent version of Python 3, install Flask and psycopg using `requirements.txt`:
+
+```
+python3 -m pip install -r requirements.txt
+```
+
+Run the tests with `python3 run_tests.py`, or run the Flask application with `flask run`.
+
+Access the app on [http://localhost:4999](http://localhost:4999/).
 
 ## Specification
 
