@@ -534,3 +534,44 @@ details > summary > h2 {
     margin-left: 0;
     margin-right: 0;
 }
+
+@media (min-width: 500px) {
+    header {
+        background-color: red !important;
+    }
+
+    nav.actionbar > ul {
+        justify-content: start;
+    }
+
+    /* this might do most of the magic */
+    main {
+        width: 500px;
+    }
+
+    .best-viewed-on-pc {
+        display: none;
+    }
+
+    /* reports stick out the side of their containing parent! */
+    article.report {
+        margin-left: 0rem;
+        margin-right: 0rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        width: 100vw;
+    }
+
+    /* put borders right around them, and add a margin */
+    nav.home > ul > li {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+        border-left: 4px solid var(--border-color);
+        border-right: 4px solid var(--border-color);
+    }
+
+    .homeheader {
+        width: 500px;
+        height: 340px;
+    }
+}
