@@ -12,9 +12,9 @@
 {% block content %}
 <aside class="product-count">
     {% if (products|length) > 1 %}
-    <p>{{ products |length }} products from manufacturer</p>
+    <p>{{ products |length }} products of this type</p>
     {% elif (products|length) == 1 %}
-    <p>1 product from manufacturer</p>
+    <p>1 product of this type</p>
     {% endif %}
 </aside>
 <article class="related-products">
